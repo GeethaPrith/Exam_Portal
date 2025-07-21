@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-primary: #000000;
+  --color-secondary: #FFFFFF;
+  --color-dark: #2c2c2c;
+  --color-light: #E3E3E3;
+  --color-scroll: #D9D9D9;
+  --color-navlink: #1E1E1E;
+}
+
+body,html{
+  font-family: 'Roboto', sans-serif;
+  html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Disable global scroll */
+}
+
+}
+*
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+

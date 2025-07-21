@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ExamPageComponent } from './components/exam-page/exam-page.component';
+import { NavComponent } from './components/nav/nav.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,ExamPageComponent,NavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
