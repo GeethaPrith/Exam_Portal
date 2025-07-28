@@ -2,14 +2,19 @@
   <span class="title-hero">EXAM PORTAL</span>
   <div class="nav-links">
     <a mat-button>Free Courses</a>
-    <a mat-button>Test Packs</a>
+    <a mat-button routerLink="/exam" routerLinkActive="active-link"> Test Packs</a>
     <a mat-button>FAQ & Support</a>
     <a mat-button>Resources</a>
     <a mat-button>Blogs</a>
     <a mat-button>Contact</a>
   </div>
   <div class="header-auth">
-    <button mat-flat-button class="signin-button">Sign in</button>
-    <button mat-flat-button class="register-button">Register</button>
+    <button mat-flat-button class="signin-button" (click)="signIn()">Sign in</button>
+    <button mat-flat-button class="register-button" (click)="register()">Register</button>
+    <a href="../student-profile" class="profile-avatar">
+      <span class="avatar-title rounded-circle  d-flex align-items-center justify-content-center" style="background-color: var(--color-scroll);">
+      <i class="material-icons">account_box</i>
+      </span>
+    </a>
   </div>
 </mat-toolbar>

@@ -1,3 +1,4 @@
-<app-nav></app-nav>
-<app-exam-page></app-exam-page>
+<app-nav *ngIf="!isStudentProfile"></app-nav>
+<!-- <app-exam-page></app-exam-page> -->
 <router-outlet> </router-outlet>
+<app-footer *ngIf="!isExamPage"></app-footer>

@@ -1,32 +1,33 @@
 .custom-toolbar {
-    position:fixed;
+    position: fixed;
     z-index: 1000;
     width: 1440px;
-    height: 107px;
+    height: 90px;
     padding: 32px 24px;
     box-sizing: border-box;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--color-secondary);
+    background-color: #303956;
     border-bottom: 1px solid var(--color-scroll);
 }
 
 .title-hero {
     position: absolute;
-    top: 24px;
+    top: 18px;
     left: 31px;
     width: 497px;
     height: 86px;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     line-height: 120%;
-    color: var(--color-primary);
+    color: var(--color-secondary);
     margin-right: 20px;
     font-size: 48px;
 
 }
+
 .nav-links {
     display: flex;
     flex-direction: row;
@@ -40,23 +41,24 @@
 .nav-links a {
     font-weight: 500;
     font-size: 16px;
-    color: var(--color-navlink);
+    color: var(--color-secondary);
     text-decoration: none;
     line-height: 32px;
 }
 
 .header-auth {
-    position:absolute;
-    right:42px;
+    position: absolute;
+    right: 42px;
     display: flex;
     align-items: center;
     justify-content: space-between !important;
 }
+
 .header-auth button {
     font-weight: 400;
     font-size: 16px;
     text-decoration: none;
-    width:83px;
+    width: 83px;
     height: 42px;
     border-radius: 10px;
 }
@@ -66,9 +68,37 @@
     background-color: var(--color-scroll) !important;
     margin-right: 10px;
 }
-.register-button {   
-    background-color:var(--color-dark) !important;
-    color: var(--color-secondary) !important;
-    border: 1px solid var(--color-dark) !important;
-    margin-left: 10px;
+
+.register-button {
+    background-color: var(--color-scroll) !important;
+    color: var(--color-dark) !important;
+    margin-left: 5px;
+}
+
+.rounded-circle {
+    border-radius: 50% !important;
+    margin-left: 10px
+}
+
+.profile-avatar {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.profile-avatar .avatar-title {
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-avatar .avatar-title:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+.signin-button .register-button :hover {
+    background-color: #303956 !important;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
