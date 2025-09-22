@@ -1,0 +1,101 @@
+<div class="pt-32pt">
+  <div
+    class="container-fluid page__container d-flex flex-column flex-md-row align-items-center text-center text-sm-left">
+    <div class="flex d-flex flex-column flex-sm-row align-items-center">
+      <div class="mb-24pt mb-sm-0 mr-sm-24pt">
+        <h2 class="mb-0">Account</h2>
+        <ol class="breadcrumb p-0 m-0">
+          <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="/account/profile">Account</a></li>
+          <li class="breadcrumb-item active">Edit Account</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Page Content -->
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="page-section container-fluid page__container">
+  <div class="page-separator">
+    <div class="page-separator__text">Profile &amp; Privacy</div>
+  </div>
+  <div class="col-md-7 p-0">
+
+    <!-- Photo -->
+    <div class="form-group">
+      <label class="form-label">Your photo</label>
+      <div class="media align-items-center">
+        <a href="" class="media-left mr-16pt">
+          <img [src]="previewUrl" alt="people" width="56" class="rounded-circle" />
+        </a>
+        <div class="media-body">
+          <div class="custom-file">
+  <input type="file" class="custom-file-input" id="inputGroupFile01"
+         (change)="onFileSelected($event)" accept="image/*">
+  <label class="custom-file-label" for="inputGroupFile01">
+    @if(profileForm.get('photo')?.value){
+      {{ profileForm.get('photo')?.value?.name }}}
+    @else{
+      Choose file
+  }
+
+  </label>
+</div>
+
+          <!-- <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile01" (change)="onFileSelected($event)"
+              accept="image/*">
+            // remove this// <label class="custom-file-label" for="inputGroupFile01">Choose file</label> 
+            <label class="custom-file-label" for="inputGroupFile01">
+              {{ profileForm.get('photo')?.value?.name || 'Choose file' }}
+            </label>
+
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Name -->
+    <div class="form-group">
+      <label class="form-label"> Profile name</label>
+      <input type="text" class="form-control" formControlName="profileName" placeholder="Your profile name...">
+      <small class="form-text text-muted">Your profile name will be used as part of your public profile URL
+        address.</small>
+
+      @if (profileForm.get('profileName')?.touched && profileForm.get('profileName')?.invalid) {
+      <div class="text-danger mt-1">
+        Profile name is required (min 3 characters).
+      </div>
+      }
+    </div>
+
+    <!-- About -->
+    <div class="form-group">
+      <label class="form-label">About you</label>
+      <textarea rows="3" class="form-control" formControlName="about" placeholder="About you ..."></textarea>
+    </div>
+
+    <!-- Display Real Name -->
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="customCheck1" formControlName="displayRealName">
+        <label class="custom-control-label" for="customCheck1">Display your real name on your profile</label>
+        <small class="form-text text-muted">If unchecked, your profile name will be displayed instead of your full
+          name.</small>
+      </div>
+    </div>
+
+    <!-- Public Profile -->
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="customCheck2" formControlName="allowPublic">
+        <label class="custom-control-label" for="customCheck2">Allow everyone to see your profile</label>
+        <small class="form-text text-muted">If unchecked, your profile will be private and no one except you will be
+          able to view it.</small>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" class="btn btn-primary">Save changes</button>
+  </div>
+</form>

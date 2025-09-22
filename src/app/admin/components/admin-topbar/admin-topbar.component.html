@@ -1,0 +1,192 @@
+<!-- admin-nav.component.html -->
+<div class="navbar navbar-expand navbar-dark navbar-dark-pickled-bluewood navbar-shadow"
+     id="admin-navbar" data-primary>
+
+  <!-- Navbar Brand (Mobile) -->
+  <a routerLink="/admin/dashboard" class="navbar-brand mr-16pt d-lg-none">
+    <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
+      <span class="avatar-title rounded bg-primary">
+        <img src="/assets/images/white.svg" alt="logo" class="img-fluid" />
+      </span>
+    </span>
+    <span class="d-none d-lg-block">Admin Portal</span>
+  </a>
+
+  <!-- Main nav links -->
+  <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
+    <li class="nav-item">
+      <a routerLink="/admin/dashboard" class="nav-link" routerLinkActive="active">
+        <span class="material-icons mr-1">dashboard</span>Dashboard
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/admin/exams" class="nav-link" routerLinkActive="active">
+        <span class="material-icons mr-1">quiz</span>Exams
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/admin/students" class="nav-link" routerLinkActive="active">
+        <span class="material-icons mr-1">people</span>Users
+      </a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/admin/reports" class="nav-link" routerLinkActive="active">
+        <span class="material-icons mr-1">assessment</span>Reports
+      </a>
+    </li>
+  </ul>
+
+  <!-- Search form -->
+  <form class="search-form navbar-search d-none d-lg-flex mr-16pt"
+        (ngSubmit)="onSearch()" style="max-width: 300px">
+    <button class="btn" type="submit">
+      <i class="material-icons">search</i>
+    </button>
+    <input type="text"
+           class="form-control"
+           placeholder="Search..."
+           [(ngModel)]="searchQuery"
+           name="search">
+  </form>
+
+  <!-- Right side buttons -->
+  <ul class="nav navbar-nav ml-auto mr-0">
+
+    <!-- Quick Actions Dropdown -->
+    <li class="nav-item dropdown" [class.show]="openDropdown === 'actions'">
+      <a class="nav-link dropdown-toggle" role="button"
+         (click)="toggleDropdown('actions')" title="Quick Actions">
+        <i class="material-icons">add_circle_outline</i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right"
+           [class.show]="openDropdown === 'actions'">
+        <h6 class="dropdown-header">Quick Actions</h6>
+        <a routerLink="/admin/createExam" class="dropdown-item"
+           (click)="navigateAndClose('/admin/createExam')">
+          <i class="material-icons mr-2">quiz</i>Create Exam
+        </a>
+        <a routerLink="/admin/add-student" class="dropdown-item"
+           (click)="navigateAndClose('/admin/add-student')">
+          <i class="material-icons mr-2">person_add</i>Add Student
+        </a>
+        <a routerLink="/admin/announcements/create" class="dropdown-item"
+           (click)="navigateAndClose('/admin/announcements/create')">
+          <i class="material-icons mr-2">campaign</i>New Announcement
+        </a>
+        <div class="dropdown-divider"></div>
+        <a routerLink="/admin/settings/general" class="dropdown-item"
+           (click)="navigateAndClose('/admin/settings/general')">
+          <i class="material-icons mr-2">settings</i>Settings
+        </a>
+      </div>
+    </li>
+
+    <!-- Notifications -->
+    <li class="nav-item dropdown" [class.show]="openDropdown === 'notifications'">
+      <a class="nav-link dropdown-toggle" role="button"
+         (click)="toggleDropdown('notifications')" title="Notifications">
+        <i class="material-icons">notifications</i>
+        @if (getUnreadNotificationCount() > 0) {
+          <span class="badge badge-notifications">
+            {{ getUnreadNotificationCount() }}
+          </span>
+        }
+      </a>
+      <div class="dropdown-menu dropdown-menu-right"
+           [class.show]="openDropdown === 'notifications'"
+           style="min-width: 320px;">
+        <div class="dropdown-header d-flex justify-content-between align-items-center">
+          <span>Notifications</span>
+          @if (getUnreadNotificationCount() > 0) {
+            <button class="btn btn-sm btn-link text-muted"
+                    (click)="markAllNotificationsAsRead()">
+              Mark all as read
+            </button>
+          }
+        </div>
+        <div class="dropdown-divider"></div>
+
+        <div class="notification-list" style="max-height: 300px; overflow-y: auto;">
+          @for (notification of notifications; track notification.id) {
+            <a class="dropdown-item notification-item"
+               [class.unread]="!notification.read"
+               (click)="markNotificationAsRead(notification.id)">
+              <div class="d-flex align-items-start">
+                <div class="notification-icon mr-3">
+                  @switch (notification.type) {
+                    @case ('user') { <i class="material-icons">person</i> }
+                    @case ('exam') { <i class="material-icons">quiz</i> }
+                    @case ('system') { <i class="material-icons">settings</i> }
+                    @default       { <i class="material-icons">notification_important</i> }
+                  }
+                </div>
+                <div class="notification-content flex-grow-1">
+                  <div class="notification-title">{{ notification.title }}</div>
+                  <div class="notification-time text-muted small">{{ notification.time }}</div>
+                </div>
+                @if (!notification.read) {
+                  <div class="notification-status">
+                    <span class="badge badge-primary badge-pill"></span>
+                  </div>
+                }
+              </div>
+            </a>
+          }
+        </div>
+
+        <div class="dropdown-divider"></div>
+        <a routerLink="/admin/notifications" class="dropdown-item text-center"
+           (click)="navigateAndClose('/admin/notifications')">
+          View All Notifications
+        </a>
+      </div>
+    </li>
+
+    <!-- User Profile Dropdown -->
+    <li class="nav-item dropdown" [class.show]="openDropdown === 'profile'">
+      <a class="nav-link dropdown-toggle d-flex align-items-center" role="button"
+         (click)="toggleDropdown('profile')">
+         <span class="avatar avatar-sm mr-8pt">
+          <img src="/assets/images/guy-3.jpg" alt="Admin"
+               class="avatar-img rounded-circle">
+        </span> 
+        <span class="d-none d-sm-block">Admin</span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right"
+           [class.show]="openDropdown === 'profile'">
+        <div class="dropdown-header">
+          <div class="media align-items-center">
+             <span class="avatar avatar-sm mr-16pt">
+              <img src="/assets/images/guy-3.jpg" alt="Admin"
+                   class="avatar-img rounded-circle">
+            </span> 
+            <div class="media-body">
+              <div class="text-body">System Administrator</div>
+              <div class="text-muted small">admin.examportal.com</div>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown-divider"></div>
+
+        <a routerLink="/admin/profile" class="dropdown-item"
+           (click)="navigateAndClose('/admin/profile')">
+          <i class="material-icons mr-2">account_circle</i>Profile
+        </a>
+        <a routerLink="/admin/settings/account" class="dropdown-item"
+           (click)="navigateAndClose('/admin/settings/account')">
+          <i class="material-icons mr-2">settings</i>Account Settings
+        </a>
+        <a routerLink="/admin/activity-log" class="dropdown-item"
+           (click)="navigateAndClose('/admin/activity-log')">
+          <i class="material-icons mr-2">history</i>Activity Log
+        </a>
+
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" (click)="logout()">
+          <i class="material-icons mr-2">exit_to_app</i>Sign Out
+        </a>
+      </div>
+    </li>
+  </ul>
+</div>

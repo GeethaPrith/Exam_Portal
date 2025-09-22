@@ -1,0 +1,143 @@
+<div class="container-fluid page__container">
+    <div class="progression-bar progression-bar--active-accent">
+        <a routerLink="/payments/pricing" class="progression-bar__item progression-bar__item--complete">
+            <span class="progression-bar__item-content">
+                <i class="material-icons progression-bar__item-icon">done</i>
+                <span class="progression-bar__item-text h5 mb-0 text-uppercase">Pricing</span>
+            </span>
+        </a>
+        <a routerLink="/auth/signup"
+            class="progression-bar__item progression-bar__item--complete progression-bar__item--active">
+            <span class="progression-bar__item-content">
+                <i class="material-icons progression-bar__item-icon"></i>
+                <span class="progression-bar__item-text h5 mb-0 text-uppercase">Account details</span>
+            </span>
+        </a>
+        <a routerLink="/payments/payment" class="progression-bar__item">
+            <span class="progression-bar__item-content">
+                <i class="material-icons progression-bar__item-icon"></i>
+                <span class="progression-bar__item-text h5 mb-0 text-uppercase">Payment details</span>
+            </span>
+        </a>
+    </div>
+</div>
+
+<div class="page-section container-fluid page__container">
+    <div class="col-lg-10 p-0 mx-auto">
+        <div class="row">
+            <div class="col-md-6 mb-24pt mb-md-0">
+                <!-- Reactive Form -->
+                <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label class="form-label" for="name">Your first and last name:</label>
+                        <input id="name" type="text" class="form-control" placeholder="Your first and last name ..."
+                            formControlName="name">
+                        @if(signupForm.get('name')?.touched && signupForm.get('name')?.invalid) {
+                            <div class="text-danger mt-1">
+                                Name is required (min 3 characters).
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label class="form-label" for="email">Your email:</label>
+                        <input id="email" type="email" class="form-control" placeholder="Your email address ..."
+                            formControlName="email">
+                        @if(signupForm.get('email')?.touched && signupForm.get('email')?.invalid) {
+                            <div class="text-danger mt-1">
+                                @if(signupForm.get('email')?.errors?.['required']) {
+                                    Email is required.
+                                }
+                                @if(signupForm.get('email')?.errors?.['email']) {
+                                    Enter a valid email address.
+                                }
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group mb-24pt">
+                        <label class="form-label" for="password">Password:</label>
+                        <input id="password" type="password" class="form-control" placeholder="Your password ..."
+                            formControlName="password">
+                        @if(signupForm.get('password')?.touched && signupForm.get('password')?.invalid) {
+                            <div class="text-danger mt-1">
+                                Password must be at least 6 characters.
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="topic-all" formControlName="terms">
+                        <label class="custom-control-label" for="topic-all">Terms and conditions</label>
+                        <small class="form-text text-muted">
+                            By checking here and continuing, I agree to the Luma Terms of Use
+                        </small>
+                        @if(signupForm.get('terms')?.touched && signupForm.get('terms')?.invalid) {
+                            <div class="text-danger mt-1">
+                                You must agree before signing up.
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary">Create account</button>
+                </form>
+            </div>
+
+            <!-- Purchase summary -->
+            <div class="col-md-6">
+                <div class="card mb-0">
+                    <div class="card-body">
+                        <h5>Purchase summary</h5>
+                        <div class="d-flex mb-8pt">
+                            <div class="flex"><strong class="text-70">Subscription</strong></div>
+                            <strong>Student</strong>
+                        </div>
+
+                        <div class="alert alert-soft-warning">
+                            <div class="d-flex flex-wrap align-items-start">
+                                <div class="mr-8pt">
+                                    <i class="material-icons">check</i>
+                                </div>
+                                <div class="flex" style="min-width: 180px">
+                                    <small class="text-100">
+                                        Access to over 1,000 high quality exams. <strong>For individuals.</strong>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex mb-16pt pb-16pt border-bottom">
+                            <div class="flex"><strong class="text-70">Price</strong></div>
+                            <strong>US &dollar;9 per month</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-separator justify-content-center m-0">
+    <div class="page-separator__text">or sign-in with</div>
+</div>
+
+<div class="page-section text-center">
+    <div class="container-fluid page__container">
+        <a routerLink="/account/payment" class="btn btn-secondary btn-block-xs" style="margin-right: 20px;">Facebook</a>
+        <a routerLink="/account/payment" class="btn btn-secondary btn-block-xs" style="margin-right: 20px;">Twitter</a>
+        <a routerLink="/account/payment" class="btn btn-secondary btn-block-xs" style="margin-right: 20px;">Google+</a>
+    </div>
+</div>
+<div class="page-section text-center">
+    <div class="container-fluid page__container">
+        <p class="text-muted mb-0">Already have an account? <a routerLink="/account/login" style="color: blue;">
+                Login</a></p>
+    </div>
+</div>
+

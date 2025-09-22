@@ -1,0 +1,173 @@
+[
+  {
+    "id": 1,
+    "text": "The area of this triangle is:",
+    "image": "/assets/images/triangle.jpg",
+    "options": ["168 cm²", "210 cm²", "84 cm²", "200²"]
+  },
+  {
+    "id": 2,
+    "text": "What is the difference between the 15th perfect square and the 14th perfect square?",
+    "options": ["15", "29", "31", "30"]
+  },
+  {
+    "id": 3,
+    "text": "Solve for θ°",
+    "image": "/assets/images/image3.jpg",
+    "options": ["28°", "36°", "48°", "56°"]
+  },
+  {
+    "id": 4,
+    "text": "Factorise the following.",
+    "description": "-8x - 48",
+    "options": ["8(x+6)", "-8(x-6)", "-8(x+6)", "-8x - 48"]
+  },
+  {
+    "id": 5,
+    "text": "A table below shows the number of students in a school band who play particular instrument.",
+    "image": "/assets/images/table.jpg",
+    "description": "A new French horn joined, three trumpets changed to drums and a clarinet left the band. Which bar chart shows the new information?",
+    "options": ["Chart A", "Chart B", "Chart C", "Chart D"]
+  },
+  {
+    "id": 6,
+    "text": "Frank was mowing the lawn. In one hour, he finished 20%. In the hours following, he completed 50% of the remaining lawn per hour. For how many hours was Frank mowing until he got to the last 10% of the lawn?",
+    "options": ["1 hour", "2 hours", "3 hours", "4 hours"]
+  },
+  {
+    "id": 7,
+    "text": "Simplify and evaluate",
+    "description": "5 log₃4 - 4 log₃2 - 2 log₃8",
+    "options": ["0", "2", "3", "1"]
+  },
+  {
+    "id": 8,
+    "text": "√50 + √48 - √18 =",
+    "options": ["m = 4", "m = 32", "m = -1", "m = -4"]
+  },
+  {
+    "id": 9,
+    "text": "What is the next number in the series?",
+    "description": "8 19 41 ? 173",
+    "options": ["73", "148", "126", "85"]
+  },
+  {
+    "id": 10,
+    "text": "Which one of the following graphs has no x-intercept?",
+    "options": ["y = (x+3)(x+5)", "y = 9x² - 24x - 9", "y = 2x² + 5x -7", "y = 5x² + 7"]
+  },
+  {
+    "id": 11,
+    "text": "The area of this triangle is:",
+    "image": "/assets/images/triangle.jpg",
+    "options": ["168 cm²", "210 cm²", "84 cm²", "200²"]
+  },
+  {
+    "id": 12,
+    "text": "What is the difference between the 15th perfect square and the 14th perfect square?",
+    "options": ["15", "29", "31", "30"]
+  },
+  {
+    "id": 13,
+    "text": "Solve for θ°",
+    "image": "/assets/images/image3.jpg",
+    "options": ["28°", "36°", "48°", "56°"]
+  },
+  {
+    "id": 14,
+    "text": "Factorise the following.",
+    "description": "-8x - 48",
+    "options": ["8(x+6)", "-8(x-6)", "-8(x+6)", "-8x - 48"]
+  },
+  {
+    "id": 15,
+    "text": "A table below shows the number of students in a school band who play particular instrument.",
+    "image": "/assets/images/table.jpg",
+    "description": "A new French horn joined, three trumpets changed to drums and a clarinet left the band. Which bar chart shows the new information?",
+    "options": ["Chart A", "Chart B", "Chart C", "Chart D"]
+  },
+  {
+    "id": 16,
+    "text": "Frank was mowing the lawn. In one hour, he finished 20%. In the hours following, he completed 50% of the remaining lawn per hour. For how many hours was Frank mowing until he got to the last 10% of the lawn?",
+    "options": ["1 hour", "2 hours", "3 hours", "4 hours"]
+  },
+  {
+    "id": 17,
+    "text": "Simplify and evaluate",
+    "description": "5 log₃4 - 4 log₃2 - 2 log₃8",
+    "options": ["0", "2", "3", "1"]
+  },
+  {
+    "id": 18,
+    "text": "√50 + √48 - √18 =",
+    "options": ["m = 4", "m = 32", "m = -1", "m = -4"]
+  },
+  {
+    "id": 19,
+    "text": "What is the next number in the series?",
+    "description": "8 19 41 ? 173",
+    "options": ["73", "148", "126", "85"]
+  },
+  {
+    "id": 20,
+    "text": "Which one of the following graphs has no x-intercept?",
+    "options": ["y = (x+3)(x+5)", "y = 9x² - 24x - 9", "y = 2x² + 5x -7", "y = 5x² + 7"]
+  },
+  {
+    "id": 21,
+    "text": "The area of this triangle is:",
+    "image": "/assets/images/triangle.jpg",
+    "options": ["168 cm²", "210 cm²", "84 cm²", "200²"]
+  },
+  {
+    "id": 22,
+    "text": "What is the difference between the 15th perfect square and the 14th perfect square?",
+    "options": ["15", "29", "31", "30"]
+  },
+  {
+    "id": 23,
+    "text": "Solve for θ°",
+    "image": "/assets/images/image3.jpg",
+    "options": ["28°", "36°", "48°", "56°"]
+  },
+  {
+    "id": 24,
+    "text": "Factorise the following.",
+    "description": "-8x - 48",
+    "options": ["8(x+6)", "-8(x-6)", "-8(x+6)", "-8x - 48"]
+  },
+  {
+    "id": 25,
+    "text": "A table below shows the number of students in a school band who play particular instrument.",
+    "image": "/assets/images/table.jpg",
+    "description": "A new French horn joined, three trumpets changed to drums and a clarinet left the band. Which bar chart shows the new information?",
+    "options": ["Chart A", "Chart B", "Chart C", "Chart D"]
+  },
+  {
+    "id": 26,
+    "text": "Frank was mowing the lawn. In one hour, he finished 20%. In the hours following, he completed 50% of the remaining lawn per hour. For how many hours was Frank mowing until he got to the last 10% of the lawn?",
+    "options": ["1 hour", "2 hours", "3 hours", "4 hours"]
+  },
+  {
+    "id": 27,
+    "text": "Simplify and evaluate",
+    "description": "5 log₃4 - 4 log₃2 - 2 log₃8",
+    "options": ["0", "2", "3", "1"]
+  },
+  {
+    "id": 28,
+    "text": "√50 + √48 - √18 =",
+    "options": ["m = 4", "m = 32", "m = -1", "m = -4"]
+  },
+  {
+    "id": 29,
+    "text": "What is the next number in the series?",
+    "description": "8 19 41 ? 173",
+    "options": ["73", "148", "126", "85"]
+  },
+  {
+    "id": 30,
+    "text": "Which one of the following graphs has no x-intercept?",
+    "options": ["y = (x+3)(x+5)", "y = 9x² - 24x - 9", "y = 2x² + 5x -7", "y = 5x² + 7"]
+  }
+]

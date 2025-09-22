@@ -1,33 +1,32 @@
-import { Component } from '@angular/core';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
-import { NavComponent } from './components/nav/nav.component';
-import { NgIf } from '@angular/common';
-import { filter, pipe } from 'rxjs';
-import { FooterComponent } from './components/footer/footer.component';
+import { Component} from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavComponent, NgIf, FooterComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'examPortal';
 
+  
   isExamPage: boolean = false;
-  isStudentProfile: boolean = false;
-  constructor(private router: Router) {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.isExamPage = event.urlAfterRedirects.includes('/exam');
-      });
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe((event: NavigationEnd) => {
-        this.isStudentProfile = event.urlAfterRedirects.includes('/student-profile');
-      }
-      );
-  }
+  isProfile: boolean = false;
+  loading = true;
 
-}
+  constructor(private router: Router) {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.loading = true;
+      }
+
+      if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
+        const url = (event as NavigationEnd).urlAfterRedirects;
+        this.isExamPage = url.includes('/exam');
+        this.isProfile = url.includes('/profile');
+        this.loading = false;
+      }
+    });
+  }
+  }

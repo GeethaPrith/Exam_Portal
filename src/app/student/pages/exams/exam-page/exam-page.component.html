@@ -1,0 +1,57 @@
+<div class="scrollable-area">
+  <div class="container-fluid exam-portal-container">
+    <div class="col-md-8 question-page-container" tabindex="0">
+      <div class="question-container">
+
+        @for (q of paginatedQuestions; track q.id) {
+        <div class="question-block mb-3">
+          <h5 class="card-title">Question {{ q.id }}</h5>
+          <p class="question">{{ q.text }}</p>
+
+          @if (q.image) {
+          <img class="question-description" [src]="q.image" alt="question image">
+          }
+
+          @if (q.description) {
+          <p class="question-description">{{ q.description }}</p>
+          }
+
+          <div class="form-check">
+            @for (option of q.options; let i = $index; track i;) {
+            {{ 'ABCD'[i] }}) {{ option }}
+            }
+          </div>
+        </div>
+        }
+
+      </div>
+    </div>
+
+    <div class="answer-panel" tabindex="0">
+      @for (q of paginatedQuestions; track q.id) {
+      <div class="answer-item">
+        <span class="answer-title">Question {{ q.id }}</span>
+        <mat-radio-group class="radio-group">
+          @for (option of q.options; let i = $index; track i;) {
+          <mat-radio-button [value]="i">{{ 'ABCD'[i] }})</mat-radio-button>
+          }
+        </mat-radio-group>
+      </div>
+      }
+    </div>
+  </div>
+</div>
+
+<!-- Pagination Controls -->
+<div class="pagination-wrapper">
+  <div class="pagination-controls text-center mt-3">
+    <button class="btn btn-outline-primary" (click)="changePage(page-1)" [disabled]="page === 1">Prev</button>
+    <span class="mx-2">Page {{ page }} of {{ totalPages }}</span>
+    <button class="btn btn-outline-primary" (click)="changePage(page+1)" [disabled]="page === totalPages">Next</button>
+  </div>
+</div>
+
+<!-- Submit Button -->
+<div class="text-center mt-3">
+  <button class="btn btn-custom" (click)="submitExam()">Submit Exam</button>
+</div>

@@ -1,0 +1,111 @@
+<!-- HTML -->
+<div class="auth-layout">
+  <div class="auth-container">
+    <div class="auth-form-container">
+      <div class="auth-form-header text-center mb-4">
+        <div class="auth-logo-mobile mb-3">
+          <img src="/assets/images/" alt="Logo" class="img-fluid" style="height: 50px;">
+        </div>
+        <h1 class="auth-title">Admin Login</h1>
+        <p class="auth-subtitle">Welcome back! Please sign in to your admin account.</p>
+      </div>
+
+      @if (errorMessage) {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="material-icons mr-2">error_outline</i>
+          {{ errorMessage }}
+        </div>
+      }
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+        <div class="form-group mb-3">
+          <label for="email" class="form-label">Email Address</label>
+          <div class="form-control-container">
+            <i class="material-icons form-control-icon">email</i>
+            <input 
+              type="email" 
+              id="email" 
+              class="form-control form-control-lg"
+              [class.is-invalid]="f['email'].invalid && f['email'].touched" 
+              formControlName="email"
+              placeholder="Enter your email address" 
+              autocomplete="email">
+          </div>
+          @if (f['email'].invalid && f['email'].touched) {
+            <div class="invalid-feedback d-block">
+              @if (f['email'].errors?.['required']) { 
+                <span>Email is required</span>
+              }
+              @if (f['email'].errors?.['email']) { 
+                <span>Please enter a valid email address</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="password" class="form-label">Password</label>
+          <div class="form-control-container position-relative">
+            <i class="material-icons form-control-icon">lock</i>
+            <input 
+              [type]="showPassword ? 'text' : 'password'" 
+              id="password"
+              class="form-control form-control-lg"
+              [class.is-invalid]="f['password'].invalid && f['password'].touched" 
+              formControlName="password"
+              placeholder="Enter your password" 
+              autocomplete="current-password">
+            <button type="button" class="btn-password-toggle" (click)="togglePasswordVisibility()">
+              <i class="material-icons">{{ showPassword ? 'visibility_off' : 'visibility' }}</i>
+            </button>
+          </div>
+          @if (f['password'].invalid && f['password'].touched) {
+            <div class="invalid-feedback d-block">
+              @if (f['password'].errors?.['required']) { 
+                <span>Password is required</span>
+              }
+              @if (f['password'].errors?.['minlength']) { 
+                <span>Password must be at least 6 characters long</span>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-group d-flex justify-content-between align-items-center mb-4">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMe" formControlName="rememberMe">
+            <label class="form-check-label" for="rememberMe">Remember me</label>
+          </div>
+          <a routerLink="/admin/auth/reset-password" class="text-primary">
+            Forgot Password?
+          </a>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg w-100 auth-submit-btn" [disabled]="loading || loginForm.invalid">
+          @if (loading) {
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            Signing In...
+          } @else {
+            <i class="material-icons me-2">login</i>
+            Sign In
+          }
+        </button>
+      </form>
+
+      <div class="auth-footer text-center mt-4">
+        <div class="auth-links">
+          <a routerLink="/admin/register" class="text-primary">
+            <i class="material-icons me-1">person_add</i>
+            Create Admin Account
+          </a>
+        </div>
+        <div class="auth-help mt-3">
+          <p class="text-muted small">
+            Need help? Contact your system administrator or
+            <a href="mailto:support@examportal.com" class="text-primary">support team</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

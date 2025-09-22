@@ -1,0 +1,554 @@
+<div class="create-exam-layout">
+  <div class="container-fluid">
+    <!-- Header -->
+    <div class="page-header mb-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="page-title">Create New Exam</h1>
+          <p class="page-subtitle text-muted">Set up a new examination for your students</p>
+        </div>
+        <div class="header-actions">
+          <button type="button" class="btn btn-outline-secondary me-2" routerLink="/admin/exams">
+            <i class="material-icons me-1">arrow_back</i>
+            Back to Exams
+          </button>
+          <button type="button" class="btn btn-primary" (click)="saveAsDraft()" [disabled]="loading">
+            <i class="material-icons me-1">save</i>
+            Save Draft
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Steps -->
+    <div class="exam-progress mb-4">
+      <div class="progress-steps">
+        @for (step of steps; track step.id) {
+        <div class="progress-step" [class.active]="currentStep === step.id" [class.completed]="step.id < currentStep">
+          <div class="step-circle">
+            @if (step.id < currentStep) { <i class="material-icons">check</i>
+              } @else {
+              {{ step.id }}
+              }
+          </div>
+          <div class="step-label">{{ step.label }}</div>
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Alert Messages -->
+    @if (errorMessage) {
+    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+      <i class="material-icons me-2">error_outline</i>
+      {{ errorMessage }}
+      <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+    </div>
+    }
+
+    @if (successMessage) {
+    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+      <i class="material-icons me-2">check_circle</i>
+      {{ successMessage }}
+      <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+    </div>
+    }
+
+    <!-- Main Form -->
+    <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="exam-form">
+
+      <!-- Step 1: Basic Information -->
+      @if (currentStep === 1) {
+      <div class="card exam-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="material-icons me-2">info</i>
+            Basic Information
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="form-group mb-3">
+                <label for="title" class="form-label">Exam Title *</label>
+                <input type="text" id="title" class="form-control"
+                  [class.is-invalid]="f['title'].invalid && f['title'].touched" formControlName="title"
+                  placeholder="Enter exam title">
+                @if (f['title'].invalid && f['title'].touched) {
+                <div class="invalid-feedback">
+                  @if (f['title'].errors?.['required']) {
+                  <span>Exam title is required</span>
+                  }
+                </div>
+                }
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" class="form-control" rows="3" formControlName="description"
+                  placeholder="Enter exam description"></textarea>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Subject *</mat-label>
+                      <mat-select formControlName="subject">
+                        <mat-option value="">Select Subject</mat-option>
+                        <mat-option value="mathematics">Mathematics</mat-option>
+                        <mat-option value="physics">Physics</mat-option>
+                        <mat-option value="chemistry">Chemistry</mat-option>
+                        <mat-option value="biology">Biology</mat-option>
+                        <mat-option value="english">English</mat-option>
+                        <mat-option value="computer-science">Computer Science</mat-option>
+                        <mat-option value="history">History</mat-option>
+                        <mat-option value="geography">Geography</mat-option>
+                      </mat-select>
+                      @if (f['subject'].invalid && f['subject'].touched) {
+                      <mat-error>Please select a subject</mat-error>
+                      }
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-label>Duration (minutes) *</mat-label>
+                      <input matInput type="number" id="duration" placeholder="e.g., 60" formControlName="duration"
+                        min="1">
+                      @if (f['duration'].invalid && f['duration'].touched) {
+                      <mat-error>
+                        @if (f['duration'].errors?.['required']) {
+                        <span>Duration is required</span>
+                        }
+                        @if (f['duration'].errors?.['min']) {
+                        <span>Duration must be at least 1 minute</span>
+                        }
+                      </mat-error>
+                      }
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label for="totalMarks" class="form-label">Total Marks *</label>
+                    <input type="number" id="totalMarks" class="form-control"
+                      [class.is-invalid]="f['totalMarks'].invalid && f['totalMarks'].touched"
+                      formControlName="totalMarks" placeholder="e.g., 100" min="1">
+                    @if (f['totalMarks'].invalid && f['totalMarks'].touched) {
+                    <div class="invalid-feedback">
+                      @if (f['totalMarks'].errors?.['required']) {
+                      <span>Total marks is required</span>
+                      }
+                      @if (f['totalMarks'].errors?.['min']) {
+                      <span>Total marks must be at least 1</span>
+                      }
+                    </div>
+                    }
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label for="passingMarks" class="form-label">Passing Marks *</label>
+                    <input type="number" id="passingMarks" class="form-control"
+                      [class.is-invalid]="f['passingMarks'].invalid && f['passingMarks'].touched"
+                      formControlName="passingMarks" placeholder="e.g., 40" min="1">
+                    @if (f['passingMarks'].invalid && f['passingMarks'].touched) {
+                    <div class="invalid-feedback">
+                      @if (f['passingMarks'].errors?.['required']) {
+                      <span>Passing marks is required</span>
+                      }
+                      @if (f['passingMarks'].errors?.['min']) {
+                      <span>Passing marks must be at least 1</span>
+                      }
+                    </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="exam-info-card">
+                <h5 class="info-title">Exam Guidelines</h5>
+                <ul class="info-list">
+                  <li>Ensure exam title is clear and descriptive</li>
+                  <li>Set appropriate duration based on question count</li>
+                  <li>Total marks should match sum of question points</li>
+                  <li>Passing marks typically 40-60% of total marks</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+
+      <!-- Step 2: Schedule & Settings -->
+      @if (currentStep === 2) {
+      <div class="card exam-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="material-icons me-2">schedule</i>
+            Schedule & Settings
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group mb-3">
+                <label for="startDate" class="form-label">Start Date & Time *</label>
+                <input type="datetime-local" id="startDate" class="form-control"
+                  [class.is-invalid]="f['startDate'].invalid && f['startDate'].touched" formControlName="startDate">
+                @if (f['startDate'].invalid && f['startDate'].touched) {
+                <div class="invalid-feedback">
+                  <span>Start date and time is required</span>
+                </div>
+                }
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="endDate" class="form-label">End Date & Time *</label>
+                <input type="datetime-local" id="endDate" class="form-control"
+                  [class.is-invalid]="f['endDate'].invalid && f['endDate'].touched" formControlName="endDate">
+                @if (f['endDate'].invalid && f['endDate'].touched) {
+                <div class="invalid-feedback">
+                  <span>End date and time is required</span>
+                </div>
+                }
+              </div>
+
+              <div class="form-group mb-4">
+                <label for="instructions" class="form-label">Exam Instructions</label>
+                <textarea id="instructions" class="form-control" rows="5" formControlName="instructions"
+                  placeholder="Enter detailed instructions for students..."></textarea>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="settings-section">
+                <h5 class="section-title">Exam Settings</h5>
+
+                <div class="form-check mb-3">
+                  <input type="checkbox" class="form-check-input" id="shuffleQuestions"
+                    formControlName="shuffleQuestions">
+                  <label class="form-check-label" for="shuffleQuestions">
+                    <strong>Shuffle Questions</strong>
+                    <small class="d-block text-muted">Questions will appear in random order for each student</small>
+                  </label>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input type="checkbox" class="form-check-input" id="allowReview" formControlName="allowReview">
+                  <label class="form-check-label" for="allowReview">
+                    <strong>Allow Review</strong>
+                    <small class="d-block text-muted">Students can review and change answers before submission</small>
+                  </label>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input type="checkbox" class="form-check-input" id="showResults" formControlName="showResults">
+                  <label class="form-check-label" for="showResults">
+                    <strong>Show Results Immediately</strong>
+                    <small class="d-block text-muted">Display results and correct answers after submission</small>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+
+      <!-- Step 3: Questions -->
+      @if (currentStep === 3) {
+      <div class="card exam-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h3 class="card-title">
+            <i class="material-icons me-2">quiz</i>
+            Questions ({{ questions.length }})
+          </h3>
+          <button type="button" class="btn btn-primary" (click)="addQuestion()">
+            <i class="material-icons me-1">add</i>
+            Add Question
+          </button>
+        </div>
+        <div class="card-body">
+          @if (questions.length === 0) {
+          <div class="empty-questions">
+            <div class="empty-icon">
+              <i class="material-icons">quiz</i>
+            </div>
+            <h4>No Questions Added Yet</h4>
+            <p class="text-muted">Click "Add Question" to start building your exam</p>
+            <button type="button" class="btn btn-primary" (click)="addQuestion()">
+              <i class="material-icons me-1">add</i>
+              Add First Question
+            </button>
+          </div>
+          } @else {
+          <div class="questions-list" formArrayName="questions">
+            @for (question of questions.controls; track $index; let i = $index) {
+            <div class="question-card" [formGroupName]="i">
+              <div class="question-header">
+                <div class="question-number">Question {{ i + 1 }}</div>
+                <div class="question-actions">
+                  <button type="button" class="btn btn-sm btn-outline-danger" (click)="removeQuestion(i)">
+                    <i class="material-icons">delete</i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="question-body">
+                <div class="form-group mb-3">
+                  <label class="form-label">Question Text *</label>
+                  <textarea class="form-control"
+                    [class.is-invalid]="getQuestionControl(i, 'question')?.invalid && getQuestionControl(i, 'question')?.touched"
+                    rows="2" formControlName="question" placeholder="Enter your question..."></textarea>
+                  @if (getQuestionControl(i, 'question')?.invalid && getQuestionControl(i, 'question')?.touched) {
+                  <div class="invalid-feedback d-block">
+                    <span>Question text is required</span>
+                  </div>
+                  }
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Question Type *</mat-label>
+                        <mat-select formControlName="type" (selectionChange)="onQuestionTypeChange(i, $event)">
+                          <mat-option value="multiple-choice">Multiple Choice</mat-option>
+                          <mat-option value="true-false">True/False</mat-option>
+                          <mat-option value="short-answer">Short Answer</mat-option>
+                          <mat-option value="essay">Essay</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Points *</mat-label>
+                        <input matInput type="number" formControlName="points" placeholder="Points" min="1">
+                        @if (getQuestionControl(i, 'points')?.invalid && getQuestionControl(i, 'points')?.touched) {
+                        <mat-error>
+                          Points is required and must be at least 1
+                        </mat-error>
+                        }
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="form-group mb-3">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Difficulty</mat-label>
+                        <mat-select formControlName="difficulty">
+                          <mat-option value="easy">Easy</mat-option>
+                          <mat-option value="medium">Medium</mat-option>
+                          <mat-option value="hard">Hard</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Multiple Choice Options -->
+                @if (getQuestionType(i) === 'multiple-choice') {
+                <div class="options-section" formArrayName="options">
+                  <label class="form-label">Answer Options</label>
+                  @for (option of getQuestionOptions(i).controls; track $index; let optionIndex = $index) {
+                  <div class="option-item">
+                    <div class="input-group mb-2">
+                      <span class="input-group-text">{{ getOptionLabel(optionIndex) }}</span>
+                      <input type="text" class="form-control" [class.is-invalid]="option.invalid && option.touched"
+                        placeholder="Enter option..." [formControlName]="optionIndex">
+                      <button type="button" class="btn btn-outline-danger" (click)="removeOption(i, optionIndex)">
+                        <i class="material-icons">close</i>
+                      </button>
+                    </div>
+                    @if (option.invalid && option.touched) {
+                    <div class="invalid-feedback d-block">
+                      <span>Option text is required</span>
+                    </div>
+                    }
+                  </div>
+                  }
+                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="addOption(i)">
+                    <i class="material-icons me-1">add</i>
+                    Add Option
+                  </button>
+                </div>
+
+                <div class="form-group mt-3">
+                  <label class="form-label">Correct Answer *</label>
+                  <select class="form-control"
+                    [class.is-invalid]="getQuestionControl(i, 'correctAnswer')?.invalid && getQuestionControl(i, 'correctAnswer')?.touched"
+                    formControlName="correctAnswer">
+                    <option value="">Select correct answer</option>
+                    @for (option of getQuestionOptions(i).controls; track $index; let optionIndex = $index) {
+                    <option [value]="optionIndex">{{ getOptionLabel(optionIndex) }} - {{ option.value || 'Empty
+                      option'
+                      }}</option>
+                    }
+                  </select>
+                  @if (getQuestionControl(i, 'correctAnswer')?.invalid && getQuestionControl(i,
+                  'correctAnswer')?.touched) {
+                  <div class="invalid-feedback d-block">
+                    <span>Please select the correct answer</span>
+                  </div>
+                  }
+                </div>
+                }
+
+                <!-- True/False Options -->
+                @if (getQuestionType(i) === 'true-false') {
+                <div class="form-group mb-3">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Correct Answer *</mat-label>
+                    <mat-select formControlName="correctAnswer">
+                      <mat-option value="">Select correct answer</mat-option>
+                      <mat-option value="true">True</mat-option>
+                      <mat-option value="false">False</mat-option>
+                    </mat-select>
+                    @if (getQuestionControl(i, 'correctAnswer')?.invalid && getQuestionControl(i,
+                    'correctAnswer')?.touched) {
+                    <mat-error>
+                      Please select the correct answer
+                    </mat-error>
+                    }
+                  </mat-form-field>
+                  @if (getQuestionControl(i, 'correctAnswer')?.invalid && getQuestionControl(i,
+                  'correctAnswer')?.touched) {
+                  <div class="invalid-feedback d-block">
+                    <span>Please select the correct answer</span>
+                  </div>
+                  }
+                </div>
+                }
+
+                <!-- Short Answer and Essay (no options needed) -->
+                @if (getQuestionType(i) === 'short-answer' || getQuestionType(i) === 'essay') {
+                <div class="alert alert-info">
+                  <i class="material-icons me-2">info</i>
+                  This question type will be manually graded by the instructor.
+                </div>
+                }
+
+                <div class="form-group mt-3">
+                  <label class="form-label">Tags (Optional)</label>
+                  <input type="text" class="form-control" placeholder="Enter tags separated by commas..."
+                    [value]="getQuestionTagsAsString(i)" (blur)="updateQuestionTags(i, $event)">
+                  <small class="form-text text-muted">Use tags to categorize questions (e.g., algebra,
+                    geometry)</small>
+                </div>
+              </div>
+            </div>
+            }
+          </div>
+          }
+        </div>
+      </div>
+      }
+
+      <!-- Step 4: Preview -->
+      @if (currentStep === 4) {
+      <div class="card exam-card">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="material-icons me-2">preview</i>
+            Exam Preview
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="exam-preview">
+            <div class="preview-header text-center mb-4">
+              <h2>{{ f['title'].value }}</h2>
+              <p class="text-muted">{{ f['description'].value }}</p>
+              <div class="exam-meta">
+                <span class="badge bg-primary me-2">{{ f['subject'].value }}</span>
+                <span class="badge bg-info me-2">{{ f['duration'].value }} minutes</span>
+                <span class="badge bg-success">{{ f['totalMarks'].value }} marks</span>
+              </div>
+            </div>
+
+            @if (f['instructions'].value) {
+            <div class="instructions-section mb-4">
+              <h5>Instructions:</h5>
+              <div class="instructions-content">{{ f['instructions'].value }}</div>
+            </div>
+            }
+
+            <div class="questions-preview">
+              <h5>Questions ({{ questions.length }})</h5>
+              @for (question of questions.controls; track $index; let i = $index) {
+              <div class="preview-question">
+                <div class="question-header">
+                  <strong>{{ i + 1 }}. {{ question.get('question')?.value }}</strong>
+                  <span class="badge bg-secondary ms-2">{{ question.get('points')?.value }} pts</span>
+                </div>
+
+                @if (question.get('type')?.value === 'multiple-choice') {
+                <div class="question-options mt-2">
+                  @for (option of question.get('options')?.value || []; track $index; let optionIndex = $index) {
+                  <div class="option-item">
+                    {{ getOptionLabel(optionIndex) }}. {{ option }}
+                  </div>
+                  }
+                </div>
+                }
+
+                @if (question.get('type')?.value === 'true-false') {
+                <div class="question-options mt-2">
+                  <mat-radio-group formControlName="correctAnswer">
+                    <mat-radio-button value="true">A. True</mat-radio-button>
+                    <mat-radio-button value="false">B. False</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                }
+              </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+
+      <!-- Navigation Buttons -->
+      <div class="form-navigation mt-4">
+        <div class="d-flex justify-content-between">
+          <div>
+            @if (currentStep > 1) {
+            <button type="button" class="btn btn-outline-secondary btn-lg" (click)="previousStep()">
+              <i class="material-icons me-2">arrow_back</i>
+              Previous
+            </button>
+            }
+          </div>
+          <div>
+            @if (currentStep < 4) { <button type="button" class="btn btn-primary btn-lg" (click)="nextStep()"
+              [disabled]="!isCurrentStepValid()">
+              Next
+              <i class="material-icons ms-2">arrow_forward</i>
+              </button>
+              } @else {
+              <button type="submit" class="btn btn-success btn-lg" [disabled]="loading || examForm.invalid">
+                @if (loading) {
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                Creating Exam...
+                } @else {
+                <i class="material-icons me-2">publish</i>
+                Create Exam
+                }
+              </button>
+              }
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

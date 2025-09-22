@@ -1,0 +1,607 @@
+<div class="add-student-layout">
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="page-header mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="page-title">Add New Student</h1>
+                    <p class="page-subtitle text-muted">Register a new student to the exam portal</p>
+                </div>
+                <div class="header-actions">
+                    <button type="button" class="btn btn-outline-secondary me-2" routerLink="/admin/students">
+                        <i class="material-icons me-1">arrow_back</i>
+                        Back to Students
+                    </button>
+                    <button type="button" class="btn btn-success" (click)="saveAsDraft()" [disabled]="loading">
+                        <i class="material-icons me-1">save</i>
+                        Save Draft
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="student-progress mb-4">
+            <div class="progress-steps">
+                @for (step of steps; track step.id) {
+                <div class="progress-step" [class.active]="currentStep === step.id"
+                    [class.completed]="step.id < currentStep">
+                    <div class="step-circle">
+                        @if (step.id < currentStep) { <i class="material-icons">check</i>
+                            } @else {
+                            {{ step.id }}
+                            }
+                    </div>
+                    <div class="step-label">{{ step.label }}</div>
+                </div>
+                }
+            </div>
+        </div>
+
+        <!-- Alert Messages -->
+        @if (errorMessage) {
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+            <i class="material-icons me-2">error_outline</i>
+            {{ errorMessage }}
+            <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+        </div>
+        }
+
+        @if (successMessage) {
+        <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+            <i class="material-icons me-2">check_circle</i>
+            {{ successMessage }}
+            <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+        </div>
+        }
+
+        <!-- Main Form -->
+        <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="student-form">
+
+            <!-- Step 1: Personal Information -->
+            @if (currentStep === 1) {
+            <div class="card student-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="material-icons me-2">person</i>
+                        Personal Information
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName" class="form-label">First Name *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">person</i>
+                                        <input type="text" id="firstName" class="form-control"
+                                            [class.is-invalid]="f['firstName'].invalid && f['firstName'].touched"
+                                            formControlName="firstName" placeholder="Enter first name">
+                                    </div>
+                                    @if (f['firstName'].invalid && f['firstName'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        @if (f['firstName'].errors?.['required']) {
+                                        <span>First name is required</span>
+                                        }
+                                        @if (f['firstName'].errors?.['minlength']) {
+                                        <span>First name must be at least 2 characters</span>
+                                        }
+                                    </div>
+                                    }
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName" class="form-label">Last Name *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">person</i>
+                                        <input type="text" id="lastName" class="form-control"
+                                            [class.is-invalid]="f['lastName'].invalid && f['lastName'].touched"
+                                            formControlName="lastName" placeholder="Enter last name">
+                                    </div>
+                                    @if (f['lastName'].invalid && f['lastName'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        @if (f['lastName'].errors?.['required']) {
+                                        <span>Last name is required</span>
+                                        }
+                                        @if (f['lastName'].errors?.['minlength']) {
+                                        <span>Last name must be at least 2 characters</span>
+                                        }
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">email</i>
+                                        <input type="email" id="email" class="form-control"
+                                            [class.is-invalid]="f['email'].invalid && f['email'].touched"
+                                            formControlName="email" placeholder="student@example.com">
+                                    </div>
+                                    @if (f['email'].invalid && f['email'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        @if (f['email'].errors?.['required']) {
+                                        <span>Email is required</span>
+                                        }
+                                        @if (f['email'].errors?.['email']) {
+                                        <span>Please enter a valid email address</span>
+                                        }
+                                    </div>
+                                    }
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Phone Number *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">phone</i>
+                                        <input type="tel" id="phone" class="form-control"
+                                            [class.is-invalid]="f['phone'].invalid && f['phone'].touched"
+                                            formControlName="phone" placeholder="Enter phone number">
+                                    </div>
+                                    @if (f['phone'].invalid && f['phone'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        @if (f['phone'].errors?.['required']) {
+                                        <span>Phone number is required</span>
+                                        }
+                                        @if (f['phone'].errors?.['pattern']) {
+                                        <span>Please enter a valid phone number</span>
+                                        }
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="dateOfBirth" class="form-label">Date of Birth *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">cake</i>
+                                        <input type="date" id="dateOfBirth" class="form-control"
+                                            [class.is-invalid]="f['dateOfBirth'].invalid && f['dateOfBirth'].touched"
+                                            formControlName="dateOfBirth">
+                                    </div>
+                                    @if (f['dateOfBirth'].invalid && f['dateOfBirth'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>Date of birth is required</span>
+                                    </div>
+                                    }
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="gender" class="form-label">Gender *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">wc</i>
+                                        <select id="gender" class="form-control"
+                                            [class.is-invalid]="f['gender'].invalid && f['gender'].touched"
+                                            formControlName="gender">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    @if (f['gender'].invalid && f['gender'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>Please select gender</span>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address *</label>
+                                <div class="form-control-container">
+                                    <i class="material-icons form-control-icon">home</i>
+                                    <textarea id="address" class="form-control" rows="3"
+                                        [class.is-invalid]="f['address'].invalid && f['address'].touched"
+                                        formControlName="address" placeholder="Enter full address"></textarea>
+                                </div>
+                                @if (f['address'].invalid && f['address'].touched) {
+                                <div class="invalid-feedback d-block">
+                                    <span>Address is required</span>
+                                </div>
+                                }
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="city" class="form-label">City *</label>
+                                    <input type="text" id="city" class="form-control"
+                                        [class.is-invalid]="f['city'].invalid && f['city'].touched"
+                                        formControlName="city" placeholder="Enter city">
+                                    @if (f['city'].invalid && f['city'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>City is required</span>
+                                    </div>
+                                    }
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="state" class="form-label">State *</label>
+                                    <input type="text" id="state" class="form-control"
+                                        [class.is-invalid]="f['state'].invalid && f['state'].touched"
+                                        formControlName="state" placeholder="Enter state">
+                                    @if (f['state'].invalid && f['state'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>State is required</span>
+                                    </div>
+                                    }
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="pincode" class="form-label">PIN Code *</label>
+                                    <input type="text" id="pincode" class="form-control"
+                                        [class.is-invalid]="f['pincode'].invalid && f['pincode'].touched"
+                                        formControlName="pincode" placeholder="Enter PIN code">
+                                    @if (f['pincode'].invalid && f['pincode'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>PIN code is required</span>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="student-info-card">
+                                <h5 class="info-title">Student Guidelines</h5>
+                                <ul class="info-list">
+                                    <li>Ensure all personal details are accurate</li>
+                                    <li>Use a valid email for account notifications</li>
+                                    <li>Phone number will be used for emergency contact</li>
+                                    <li>Address information is required for official records</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+
+            <!-- Step 2: Emergency Contact -->
+            @if (currentStep === 2) {
+            <div class="card student-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="material-icons me-2">contact_emergency</i>
+                        Emergency Contact Information
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="mb-3">
+                                <label for="emergencyContact" class="form-label">Emergency Contact Name *</label>
+                                <div class="form-control-container">
+                                    <i class="material-icons form-control-icon">contact_phone</i>
+                                    <input type="text" id="emergencyContact" class="form-control"
+                                        [class.is-invalid]="f['emergencyContact'].invalid && f['emergencyContact'].touched"
+                                        formControlName="emergencyContact" placeholder="Enter emergency contact name">
+                                </div>
+                                @if (f['emergencyContact'].invalid && f['emergencyContact'].touched) {
+                                <div class="invalid-feedback d-block">
+                                    <span>Emergency contact name is required</span>
+                                </div>
+                                }
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="emergencyPhone" class="form-label">Emergency Contact Phone *</label>
+                                <div class="form-control-container">
+                                    <i class="material-icons form-control-icon">phone</i>
+                                    <input type="tel" id="emergencyPhone" class="form-control"
+                                        [class.is-invalid]="f['emergencyPhone'].invalid && f['emergencyPhone'].touched"
+                                        formControlName="emergencyPhone" placeholder="Enter emergency contact phone">
+                                </div>
+                                @if (f['emergencyPhone'].invalid && f['emergencyPhone'].touched) {
+                                <div class="invalid-feedback d-block">
+                                    @if (f['emergencyPhone'].errors?.['required']) {
+                                    <span>Emergency contact phone is required</span>
+                                    }
+                                    @if (f['emergencyPhone'].errors?.['pattern']) {
+                                    <span>Please enter a valid phone number</span>
+                                    }
+                                </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="emergency-info-card">
+                                <h5 class="info-title">Emergency Contact</h5>
+                                <p class="text-muted">This information will be used to contact someone in case of
+                                    emergency. Please provide details of a parent, guardian, or close relative.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+
+            <!-- Step 3: Academic Information -->
+            @if (currentStep === 3) {
+            <div class="card student-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="material-icons me-2">school</i>
+                        Academic Information
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="studentId" class="form-label">Student ID *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">badge</i>
+                                        <input type="text" id="studentId" class="form-control"
+                                            [class.is-invalid]="f['studentId'].invalid && f['studentId'].touched"
+                                            formControlName="studentId" placeholder="Enter student ID">
+                                    </div>
+                                    @if (f['studentId'].invalid && f['studentId'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>Student ID is required</span>
+                                    </div>
+                                    }
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="rollNumber" class="form-label">Roll Number *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">confirmation_number</i>
+                                        <input type="text" id="rollNumber" class="form-control"
+                                            [class.is-invalid]="f['rollNumber'].invalid && f['rollNumber'].touched"
+                                            formControlName="rollNumber" placeholder="Enter roll number">
+                                    </div>
+                                    @if (f['rollNumber'].invalid && f['rollNumber'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>Roll number is required</span>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="course" class="form-label">Course *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">menu_book</i>
+                                        <select id="course" class="form-control"
+                                            [class.is-invalid]="f['course'].invalid && f['course'].touched"
+                                            formControlName="course">
+                                            <option value="">Select Course</option>
+                                            <option value="computer-science">Computer Science</option>
+                                            <option value="information-technology">Information Technology</option>
+                                            <option value="mechanical-engineering">Mechanical Engineering</option>
+                                            <option value="electrical-engineering">Electrical Engineering</option>
+                                            <option value="civil-engineering">Civil Engineering</option>
+                                            <option value="electronics-communication">Electronics & Communication
+                                            </option>
+                                            <option value="business-administration">Business Administration</option>
+                                            <option value="commerce">Commerce</option>
+                                            <option value="arts">Arts</option>
+                                            <option value="science">Science</option>
+                                        </select>
+                                    </div>
+                                    @if (f['course'].invalid && f['course'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>Please select a course</span>
+                                    </div>
+                                    }
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="semester" class="form-label">Semester *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">calendar_today</i>
+                                        <select id="semester" class="form-control"
+                                            [class.is-invalid]="f['semester'].invalid && f['semester'].touched"
+                                            formControlName="semester">
+                                            <option value="">Select Semester</option>
+                                            <option value="1">1st Semester</option>
+                                            <option value="2">2nd Semester</option>
+                                            <option value="3">3rd Semester</option>
+                                            <option value="4">4th Semester</option>
+                                            <option value="5">5th Semester</option>
+                                            <option value="6">6th Semester</option>
+                                            <option value="7">7th Semester</option>
+                                            <option value="8">8th Semester</option>
+                                        </select>
+                                    </div>
+                                    @if (f['semester'].invalid && f['semester'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>Please select semester</span>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="batch" class="form-label">Batch *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">groups</i>
+                                        <input type="text" id="batch" class="form-control"
+                                            [class.is-invalid]="f['batch'].invalid && f['batch'].touched"
+                                            formControlName="batch" placeholder="e.g., 2024-2028">
+                                    </div>
+                                    @if (f['batch'].invalid && f['batch'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>Batch is required</span>
+                                    </div>
+                                    }
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="admissionDate" class="form-label">Admission Date *</label>
+                                    <div class="form-control-container">
+                                        <i class="material-icons form-control-icon">event</i>
+                                        <input type="date" id="admissionDate" class="form-control"
+                                            [class.is-invalid]="f['admissionDate'].invalid && f['admissionDate'].touched"
+                                            formControlName="admissionDate">
+                                    </div>
+                                    @if (f['admissionDate'].invalid && f['admissionDate'].touched) {
+                                    <div class="invalid-feedback d-block">
+                                        <span>Admission date is required</span>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input type="checkbox" class="form-check-input" id="isActive"
+                                    formControlName="isActive">
+                                <label class="form-check-label" for="isActive">
+                                    <strong>Active Student</strong>
+                                    <small class="d-block text-muted">Student can access the exam portal and participate
+                                        in exams</small>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="academic-info-card">
+                                <h5 class="info-title">Academic Details</h5>
+                                <ul class="info-list">
+                                    <li>Student ID should be unique</li>
+                                    <li>Roll number follows institutional format</li>
+                                    <li>Course and semester determine exam eligibility</li>
+                                    <li>Batch helps in grouping students</li>
+                                    <li>Only active students can take exams</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+
+            <!-- Step 4: Review -->
+            @if (currentStep === 4) {
+            <div class="card student-card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="material-icons me-2">preview</i>
+                        Review Student Information
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="student-preview">
+                        <div class="preview-section mb-4">
+                            <h5 class="section-title">Personal Information</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="preview-item">
+                                        <strong>Name:</strong> {{ f['firstName'].value }} {{ f['lastName'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>Email:</strong> {{ f['email'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>Phone:</strong> {{ f['phone'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>Date of Birth:</strong> {{ f['dateOfBirth'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>Gender:</strong> {{ f['gender'].value | titlecase }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="preview-item">
+                                        <strong>Address:</strong> {{ f['address'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>City:</strong> {{ f['city'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>State:</strong> {{ f['state'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>PIN Code:</strong> {{ f['pincode'].value }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="preview-section mb-4">
+                            <h5 class="section-title">Emergency Contact</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="preview-item">
+                                        <strong>Contact Name:</strong> {{ f['emergencyContact'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>Contact Phone:</strong> {{ f['emergencyPhone'].value }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="preview-section">
+                            <h5 class="section-title">Academic Information</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="preview-item">
+                                        <strong>Student ID:</strong> {{ f['studentId'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>Roll Number:</strong> {{ f['rollNumber'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>Course:</strong> {{ getCourseLabel(f['course'].value) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="preview-item">
+                                        <strong>Semester:</strong> {{ f['semester'].value }}{{
+                                        getSemesterSuffix(f['semester'].value) }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>Batch:</strong> {{ f['batch'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>Admission Date:</strong> {{ f['admissionDate'].value }}
+                                    </div>
+                                    <div class="preview-item">
+                                        <strong>Status:</strong>
+                                        <span [class]="f['isActive'].value ? 'badge bg-success' : 'badge bg-danger'">
+                                            {{ f['isActive'].value ? 'Active' : 'Inactive' }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+
+            <!-- Navigation Buttons -->
+            <div class="form-navigation mt-4">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        @if (currentStep > 1) {
+                        <button type="button" class="btn btn-outline-secondary btn-lg" (click)="previousStep()">
+                            <i class="material-icons me-2">arrow_back</i>
+                            Previous
+                        </button>
+                        }
+                    </div>
+                    <div>
+                        @if (currentStep < 4) { <button type="button" class="btn btn-primary btn-lg"
+                            (click)="nextStep()" [disabled]="!isCurrentStepValid()">
+                            Next
+                            <i class="material-icons ms-2">arrow_forward</i>
+                            </button>
+                            } @else {
+                            <button type="submit" class="btn btn-success btn-lg"
+                                [disabled]="loading || studentForm.invalid">
+                                @if (loading) {
+                                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                Adding Student...
+                                } @else {
+                                <i class="material-icons me-2">person_add</i>
+                                Add Student
+                                }
+                            </button>
+                            }
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="container-fluid page__container page-section">
+  <div class="page-separator">
+    <div class="page-separator__text">Basic Information</div>
+  </div>
+
+  <div class="col-md-6 p-0">
+    <form [formGroup]="infoForm" (ngSubmit)="onSave()">
+      <!-- First Name -->
+      <div class="form-group">
+        <label class="form-label">First name</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          formControlName="firstName" 
+          placeholder="Your first name ..." />
+        @if(firstName.invalid && firstName.touched) {
+          <small class="text-danger">First name is required</small>
+        }
+      </div>
+      <!-- Last Name -->
+      <div class="form-group">
+        <label class="form-label">Last name</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          formControlName="lastName" 
+          placeholder="Your last name ..." />
+        @if(lastName.invalid && lastName.touched) {
+          <small class="text-danger">Last name is required</small>
+        }
+      </div>
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label">Email address</label>
+        <input 
+          type="email" 
+          class="form-control" 
+          formControlName="email" 
+          placeholder="Your email address ..." />
+        @if(email.invalid && email.touched) {
+          <small class="text-danger">Please enter a valid email</small>
+        }
+        <small class="form-text text-muted">
+          Note that if you change your email, you will have to confirm it again.
+        </small>
+      </div>
+      <!-- Save Button -->
+      <button type="submit" class="btn btn-primary" [disabled]="infoForm.invalid">
+        Save changes
+      </button>
+    </form>
+  </div>
+</div>

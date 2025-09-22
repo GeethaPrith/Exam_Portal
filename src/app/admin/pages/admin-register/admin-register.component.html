@@ -1,0 +1,194 @@
+<!-- admin-register.component.html -->
+<div class="auth-layout">
+    <div class="auth-container">
+        <div class="auth-form-container">
+            <div class="auth-form-header text-center mb-4">
+                <div class="auth-logo-mobile mb-3">
+                    <img src="/assets/images/logo.svg" alt="Logo" class="img-fluid" style="height: 50px;">
+                </div>
+                <h1 class="auth-title">Create Admin Account</h1>
+                <p class="auth-subtitle">Set up your administrative access to the exam portal.</p>
+            </div>
+
+            @if (errorMessage) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="material-icons me-2">error_outline</i>
+                {{ errorMessage }}
+            </div>
+            }
+
+            @if (successMessage) {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="material-icons me-2">check_circle</i>
+                {{ successMessage }}
+            </div>
+            }
+
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <div class="form-control-container">
+                            <i class="material-icons form-control-icon">person</i>
+                            <input type="text" id="firstName" class="form-control form-control-lg"
+                                [class.is-invalid]="f['firstName'].invalid && f['firstName'].touched"
+                                formControlName="firstName" placeholder="Enter your first name"
+                                autocomplete="given-name">
+                        </div>
+                        @if (f['firstName'].invalid && f['firstName'].touched) {
+                        <div class="invalid-feedback d-block">
+                            @if (f['firstName'].errors?.['required']) { <span>First name is required</span> }
+                            @if (f['firstName'].errors?.['minlength']) { <span>First name must be at least 2 characters
+                                long</span> }
+                        </div>
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <div class="form-control-container">
+                            <i class="material-icons form-control-icon">person</i>
+                            <input type="text" id="lastName" class="form-control form-control-lg"
+                                [class.is-invalid]="f['lastName'].invalid && f['lastName'].touched"
+                                formControlName="lastName" placeholder="Enter your last name"
+                                autocomplete="family-name">
+                        </div>
+                        @if (f['lastName'].invalid && f['lastName'].touched) {
+                        <div class="invalid-feedback d-block">
+                            @if (f['lastName'].errors?.['required']) { <span>Last name is required</span> }
+                            @if (f['lastName'].errors?.['minlength']) { <span>Last name must be at least 2 characters
+                                long</span> }
+                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <div class="form-control-container">
+                        <i class="material-icons form-control-icon">email</i>
+                        <input type="email" id="email" class="form-control form-control-lg"
+                            [class.is-invalid]="f['email'].invalid && f['email'].touched" formControlName="email"
+                            placeholder="Enter your email address" autocomplete="email">
+                    </div>
+                    @if (f['email'].invalid && f['email'].touched) {
+                    <div class="invalid-feedback d-block">
+                        @if (f['email'].errors?.['required']) { <span>Email is required</span> }
+                        @if (f['email'].errors?.['email']) { <span>Please enter a valid email address</span> }
+                    </div>
+                    }
+                </div>
+
+              <div class="form-group mb-3">
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-icon matPrefix>admin_panel_settings</mat-icon>
+
+    <mat-label>Select Role</mat-label>
+    <mat-select formControlName="role">
+      <mat-option value="super_admin">Super Admin</mat-option>
+      <mat-option value="admin">Admin</mat-option>
+      <mat-option value="teacher">Teacher</mat-option>
+    </mat-select>
+
+    @if (f['role'].invalid && f['role'].touched) {
+      <mat-error>
+        Please select a role
+      </mat-error>
+    }
+  </mat-form-field>
+</div>
+
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="form-control-container position-relative">
+                            <i class="material-icons form-control-icon">lock</i>
+                            <input [type]="showPassword ? 'text' : 'password'" id="password"
+                                class="form-control form-control-lg"
+                                [class.is-invalid]="f['password'].invalid && f['password'].touched"
+                                formControlName="password" placeholder="Create password" autocomplete="new-password">
+                            <button type="button" class="btn-password-toggle" (click)="togglePasswordVisibility()">
+                                <i class="material-icons">{{ showPassword ? 'visibility_off' : 'visibility' }}</i>
+                            </button>
+                        </div>
+                        @if (f['password'].invalid && f['password'].touched) {
+                        <div class="invalid-feedback d-block">
+                            @if (f['password'].errors?.['required']) { <span>Password is required</span> }
+                            @if (f['password'].errors?.['weakPassword']) {
+                            <span>Password must contain at least 8 characters with uppercase, lowercase, number and
+                                special character</span>
+                            }
+                        </div>
+                        }
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <div class="form-control-container position-relative">
+                            <i class="material-icons form-control-icon">lock</i>
+                            <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword"
+                                class="form-control form-control-lg"
+                                [class.is-invalid]="f['confirmPassword'].invalid && f['confirmPassword'].touched"
+                                formControlName="confirmPassword" placeholder="Confirm password"
+                                autocomplete="new-password">
+                            <button type="button" class="btn-password-toggle"
+                                (click)="toggleConfirmPasswordVisibility()">
+                                <i class="material-icons">{{ showConfirmPassword ? 'visibility_off' : 'visibility'
+                                    }}</i>
+                            </button>
+                        </div>
+                        @if (f['confirmPassword'].invalid && f['confirmPassword'].touched) {
+                        <div class="invalid-feedback d-block">
+                            @if (f['confirmPassword'].errors?.['required']) { <span>Please confirm your password</span>
+                            }
+                        </div>
+                        }
+                        @if (registerForm.errors?.['passwordMismatch'] && f['confirmPassword'].touched) {
+                        <div class="invalid-feedback d-block"><span>Passwords do not match</span></div>
+                        }
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="acceptTerms" formControlName="acceptTerms"
+                            [class.is-invalid]="f['acceptTerms'].invalid && f['acceptTerms'].touched">
+                        <label class="form-check-label" for="acceptTerms">
+                            I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#"
+                                class="text-primary">Privacy Policy</a>
+                        </label>
+                    </div>
+                    @if (f['acceptTerms'].invalid && f['acceptTerms'].touched) {
+                    <div class="invalid-feedback d-block"><span>You must accept the terms and conditions</span></div>
+                    }
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg w-100 auth-submit-btn"
+                    [disabled]="loading || registerForm.invalid">
+                    @if (loading) {
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    Creating Account...
+                    } @else {
+                    <i class="material-icons me-2">person_add</i>
+                    Create Account
+                    }
+                </button>
+            </form>
+
+            <div class="auth-footer text-center mt-4">
+                <div class="auth-links">
+                    <a routerLink="/admin/signin" class="text-primary">
+                        <i class="material-icons me-1">arrow_back</i>
+                        Back to Login
+                    </a>
+                </div>
+                <div class="auth-help mt-3">
+                    <p class="text-muted small">
+                        Already have an account? <a routerLink="/admin/signin" class="text-primary">Sign in here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

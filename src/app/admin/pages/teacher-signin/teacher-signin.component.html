@@ -1,0 +1,84 @@
+<div class="auth-layout teacher-theme">
+  <div class="auth-container">
+    <div class="pt-32pt pt-sm-64pt pb-32pt">
+      <div class="container-fluid page__container">
+        <div class="auth-form-container mx-auto col-md-6 col-lg-5">
+
+          <div class="auth-form-header text-center mb-4">
+            <div class="auth-logo mb-3">
+              <img src="/assets/images/teacher-logo.svg" alt="Teacher Portal Logo" class="img-fluid" style="height: 60px;">
+            </div>
+            <h1 class="auth-title">Teacher Sign In</h1>
+            <p class="auth-subtitle text-muted">Access your teaching dashboard</p>
+          </div>
+
+          @if (errorMessage) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <i class="material-icons me-2">error_outline</i>
+              {{ errorMessage }}
+            </div>
+          }
+
+          <form [formGroup]="signinForm" (ngSubmit)="onSubmit()" class="auth-form">
+            
+            <div class="form-group mb-3">
+              <label for="email" class="form-label">Email</label>
+              <div class="form-control-container">
+                <i class="material-icons form-control-icon">email</i>
+                <input
+                  type="email"
+                  id="email"
+                  class="form-control form-control-lg"
+                  [class.is-invalid]="f['email'].invalid && f['email'].touched"
+                  formControlName="email"
+                  placeholder="Enter your email"
+                  autocomplete="email">
+              </div>
+              @if (f['email'].invalid && f['email'].touched) {
+                <div class="invalid-feedback d-block">
+                  @if (f['email'].errors?.['required']) { <span>Email is required</span> }
+                  @if (f['email'].errors?.['email']) { <span>Enter a valid email address</span> }
+                </div>
+              }
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="password" class="form-label">Password</label>
+              <div class="form-control-container position-relative">
+                <i class="material-icons form-control-icon">lock</i>
+                <input
+                  type="password"
+                  id="password"
+                  class="form-control form-control-lg"
+                  [class.is-invalid]="f['password'].invalid && f['password'].touched"
+                  formControlName="password"
+                  placeholder="Enter your password"
+                  autocomplete="current-password">
+              </div>
+              @if (f['password'].invalid && f['password'].touched) {
+                <div class="invalid-feedback d-block">
+                  @if (f['password'].errors?.['required']) { <span>Password is required</span> }
+                </div>
+              }
+            </div>
+
+            <button type="submit" class="btn btn-success btn-lg w-100 auth-submit-btn" [disabled]="loading || signinForm.invalid">
+              @if (loading) {
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                Signing in...
+              } @else {
+                <i class="material-icons me-2">login</i>
+                Sign In
+              }
+            </button>
+          </form>
+
+          <div class="auth-footer text-center mt-4">
+            <a routerLink="/admin/teacher/password" class="text-primary">Forgot Password?</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+.teacher-theme {
+  background: #f0f9f4;
+
+  .auth-form-container {
+    background: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 6px 18px rgba(0, 128, 0, 0.15);
+    padding: 2rem;
+  }
+
+  .auth-title {
+    color: #111827;
+    font-weight: 700;
+  }
+
+  .auth-submit-btn {
+    background: #f55036;
+    border: none;
+
+    &:hover {
+      background: #f55036;
+    }
+  }
+
+  .form-control-icon {
+    color: #9ca3af;
+  }
+
+  .text-success {
+    font-weight: 500;
+  }
+}

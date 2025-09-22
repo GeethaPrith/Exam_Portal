@@ -1,0 +1,51 @@
+/* Base layout */
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background: #fff;
+  height: 100vh;
+  overflow-y: auto;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  z-index: 2000;
+
+  // /* Desktop: always visible */
+  // @media (min-width: 992px) {
+  //   position: relative;
+  //   transform: none; // keep it visible
+  //   box-shadow: none;
+  // }
+
+  /* Mobile: hidden off-canvas */
+  @media (max-width: 991px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+}
+
+/* Host binding from Angular to open drawer */
+:host-context(.has-drawer-opened) .sidebar {
+  @media (max-width: 991px) {
+    transform: translateX(0);
+  }
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}

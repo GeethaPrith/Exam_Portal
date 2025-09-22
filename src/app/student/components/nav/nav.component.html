@@ -1,0 +1,78 @@
+<div class="navbar navbar-expand navbar-dark navbar-dark-pickled-bluewood navbar-shadow" id="default-navbar"
+  data-primary>
+
+  <!-- Navbar toggler -->
+  <!-- <button class="navbar-toggler w-auto mr-16pt d-block d-lg-none rounded-0" type="button" (click)="toggleSidebar()">
+    <span class="material-icons">short_text</span>
+  </button> -->
+  <button class="navbar-toggler w-auto mr-16pt d-block d-lg-none rounded-0" type="button" (click)="toggleSidebar()">
+    <span class="material-icons">short_text</span>
+  </button>
+
+  <!-- Navbar Brand -->
+  <a routerLink="/home" class="navbar-brand mr-16pt d-lg-none">
+    <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
+      <span class="avatar-title rounded bg-primary">
+        <img src="/assets/images/white.svg" alt="logo" class="img-fluid" />
+      </span>
+    </span>
+    <span class="d-none d-lg-block">Luma</span>
+  </a>
+
+  <!-- Main nav links -->
+  <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
+    <li class="nav-item">
+      <a routerLink="/home" class="nav-link" routerLinkActive="active">Home</a>
+    </li>
+
+    <li class="nav-item">
+      <a routerLink="/payments/pricing" class="nav-link">Pricing</a>
+    </li>
+
+    <li class="nav-item dropdown" [class.show]="openDropdown === 'exams'">
+      <a class="nav-link dropdown-toggle" role="button" (click)="toggleDropdown('exams')">Exam</a>
+      <div class="dropdown-menu" [class.show]="openDropdown === 'exams'">
+         <a routerLink="/exams/demo" class="dropdown-item" (click)="navigateAndClose('/exams/demo')">Demo-Exampage</a>
+      <a routerLink="/exams/browse" class="dropdown-item" (click)="navigateAndClose('/exams/browse')">Browse
+        Packages</a>
+   
+        <a routerLink="/student-quiz-result-details" class="dropdown-item">Exam Result</a>
+        <a routerLink="/student-dashboard" class="dropdown-item">Student Dashboard</a>
+        <a routerLink="/student-my-courses" class="dropdown-item">My Exams
+        </a>
+        <a routerLink="/help-center" class="dropdown-item">Help Center</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown" [class.show]="openDropdown === 'community'">
+      <a class="nav-link dropdown-toggle" role="button" (click)="toggleDropdown('community')">
+        <i class="material-icons">people_outline</i>
+      </a>
+      <div class="dropdown-menu" [class.show]="openDropdown === 'community'">
+        <a routerLink="/student-profile" class="dropdown-item">Student Profile</a>
+        <a routerLink="/blog" class="dropdown-item">Blog</a>
+        <a routerLink="/blog-post" class="dropdown-item">Blog Post</a>
+        <a routerLink="/faq" class="dropdown-item">FAQ</a>
+        <a routerLink="/help-center" class="dropdown-item">Help Center</a>
+        <a routerLink="/discussions" class="dropdown-item">Discussions</a>
+        <a routerLink="/discussion" class="dropdown-item">Discussion Details</a>
+        <a routerLink="/discussions-ask" class="dropdown-item">Ask Question</a>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Search form -->
+  <form class="search-form navbar-search d-none d-lg-flex mr-16pt" (ngSubmit)="onSearch()" style="max-width: 230px">
+    <button class="btn" type="submit"><i class="material-icons">search</i></button>
+    <input type="text" class="form-control" placeholder="Search ..." [(ngModel)]="searchQuery" name="search">
+  </form>
+
+  <!-- Right side buttons -->
+  <ul class="nav navbar-nav ml-auto mr-0">
+    <li class="nav-item active">
+      <a routerLink="/auth/login" class="nav-link"><i class="material-icons">lock_open</i></a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/auth/signup" class="btn btn-outline-white">Get Started</a>
+    </li>
+  </ul>
+</div>

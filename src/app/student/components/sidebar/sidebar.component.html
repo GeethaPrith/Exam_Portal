@@ -1,0 +1,207 @@
+<div class="modern-drawer" id="default-drawer">
+    <div class="modern-drawer__content">
+        <div class="modern-sidebar" data-perfect-scrollbar>
+            
+            <!-- Brand Section -->
+            <a routerLink="/home" class="modern-brand">
+                <span class="brand-avatar">
+                    <span class="brand-icon">
+                        <img src="/assets/images/white.svg" class="brand-img" alt="logo" />
+                    </span>
+                </span>
+                <span class="brand-title">Portal</span>
+            </a>
+
+            <!-- Sidebar Heading -->
+            <div class="modern-heading">Applications</div>
+            
+            <!-- Menu Items -->
+            <ul class="modern-menu">
+                
+                <!-- Account Menu with Dropdown -->
+                <li class="modern-menu-item" [class.is-expanded]="accountOpen">
+                    <a class="modern-menu-link" (click)="toggleAccountMenu($event)">
+                        <span class="modern-icon material-icons">account_box</span>
+                        <span class="modern-text">Account</span>
+                        <span class="modern-arrow"></span>
+                    </a>
+
+                    <!-- Account Submenu -->
+                    <ul class="modern-submenu" [class.is-visible]="accountOpen">
+                        <li class="modern-submenu-item">
+                            <a class="modern-submenu-link" routerLink="/auth/login" routerLinkActive="is-active">
+                                <span class="modern-submenu-text">Login</span>
+                            </a>
+                        </li>
+                        <li class="modern-submenu-item">
+                            <a class="modern-submenu-link" routerLink="/auth/signup" routerLinkActive="is-active">
+                                <span class="modern-submenu-text">Signup</span>
+                            </a>
+                        </li>
+                        <li class="modern-submenu-item">
+                            <a class="modern-submenu-link" routerLink="/payments/payment" routerLinkActive="is-active">
+                                <span class="modern-submenu-text">Payment</span>
+                            </a>
+                        </li>
+                        <li class="modern-submenu-item">
+                            <a class="modern-submenu-link" routerLink="/auth/password" routerLinkActive="is-active">
+                                <span class="modern-submenu-text">Password</span>
+                            </a>
+                        </li>
+                        <li class="modern-submenu-item">
+                            <a class="modern-submenu-link" routerLink="/account/edit-account" routerLinkActive="is-active">
+                                <span class="modern-submenu-text">Edit Account</span>
+                            </a>
+                        </li>
+                        <li class="modern-submenu-item">
+                            <a class="modern-submenu-link" routerLink="/account/profile" routerLinkActive="is-active">
+                                <span class="modern-submenu-text">Profile & Privacy</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Single Menu Item -->
+                <li class="modern-menu-item">
+                    <a class="modern-menu-link" routerLink="/payments/pricing" routerLinkActive="is-active">
+                        <span class="modern-icon material-icons">monetization_on</span>
+                        <span class="modern-text">Pricing</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- <div class="mdk-drawer js-mdk-drawer" id="default-drawer">
+    <div class="mdk-drawer__content">
+        <div class="sidebar sidebar-light sidebar-light-dodger-blue sidebar-left" data-perfect-scrollbar>
+            
+            <a routerLink="/home" class="sidebar-brand sidebar-brand-dark bg-primary-pickled-bluewood">
+                <span class="avatar avatar-xl sidebar-brand-icon h-auto">
+                    <span class="avatar-title rounded bg-primary">
+                        <img src="/assets/images/white.svg" class="img-fluid" alt="logo" />
+                    </span>
+                </span>
+                <span>Portal</span>
+            </a>
+
+            <div class="sidebar-heading">Applications</div>
+            
+            <ul class="sidebar-menu">
+                
+                <li class="sidebar-menu-item" [class.open]="accountOpen">
+                    <a class="sidebar-menu-button" (click)="toggleAccountMenu($event)">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">account_box</span>
+                        <span class="sidebar-menu-text">Account</span>
+                    </a>
+
+                    <ul class="sidebar-submenu sm-indent" [class.show]="accountOpen">
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/auth/login" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Login</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/auth/signup" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Signup</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/payments/payment" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Payment</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/auth/password" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Password</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/account/edit-account" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Edit Account</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/account/profile" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Profile & Privacy</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-button" routerLink="/payments/pricing" routerLinkActive="active">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">monetization_on</span>
+                        <span class="sidebar-menu-text">Pricing</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div> -->
+<!-- <div class="mdk-drawer js-mdk-drawer" id="default-drawer">
+    <div class="mdk-drawer__content">
+        <div class="sidebar sidebar-light sidebar-light-dodger-blue sidebar-left" data-perfect-scrollbar>
+            <a routerLink="/home" class="sidebar-brand sidebar-brand-dark bg-primary-pickled-bluewood">
+                <span class="avatar avatar-xl sidebar-brand-icon h-auto">
+                    <span class="avatar-title rounded bg-primary"><img src="/assets/images/white.svg" class="img-fluid"
+                            alt="logo" />
+                    </span>
+                </span>
+                <span>Portal</span>
+            </a>
+            <div class="sidebar-heading">Applications</div>
+            <ul class="sidebar-menu">
+                <li class="sidebar-menu-item" [class.open]="accountOpen">
+                    <a class="sidebar-menu-button" (click)="toggleAccountMenu($event)">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">account_box</span>
+                        Account
+                        <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                    </a>
+
+                    <ul class="sidebar-submenu sm-indent" [class.show]="accountOpen">
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/auth/login" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Login</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/auth/signup" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Signup</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/payments/payment" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Payment</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/auth/password" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Password</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/account/edit-account" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Edit Account</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button" routerLink="/account/profile" routerLinkActive="active">
+                                <span class="sidebar-menu-text">Profile & Privacy</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-menu-item">
+                    <a class="sidebar-menu-button" routerLink="/payments/pricing" routerLinkActive="active">
+                        <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">monetization_on</span>
+                        Pricing
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+</div> -->

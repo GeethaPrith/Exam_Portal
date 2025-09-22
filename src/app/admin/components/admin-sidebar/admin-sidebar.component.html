@@ -1,0 +1,269 @@
+<div class="modern-drawer" id="default-drawer">
+    <div class="modern-drawer__content">
+        <div class="modern-sidebar sidebar-enhanced" data-perfect-scrollbar>
+            <div class="sidebar-brand-enhanced">
+                <div class="brand-container">
+                    <div class="brand-logo">
+                        <img src="/assets/images/white.svg" class="logo-img" alt="logo" />
+                    </div>
+                    <div class="brand-content">
+                        <h4 class="brand-title">Admin Portal</h4>
+                        <div class="admin-info">
+                            <div class="admin-avatar">
+                                <img src="/assets/images/guy-3.jpg" alt="Admin">
+                                <div class="status-indicator"></div>
+                            </div>
+                            <div class="admin-details">
+                                <span class="admin-name">John</span> <br>
+                                <span class="admin-role">Super Admin</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="sidebar-menu-enhanced">
+                <!-- Dashboard Section -->
+                <li class="sidebar-menu-item-enhanced" [class.open]="dashboardOpen">
+                    <a class="sidebar-menu-button-enhanced" (click)="toggleDashboardMenu($event)">
+                        <div class="menu-item-content">
+                            <span class="material-icons sidebar-menu-icon">dashboard</span>
+                            <span class="menu-text">Dashboard</span>
+                            <span class="menu-arrow material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </a>
+                    <ul class="sidebar-submenu-enhanced" [class.show]="dashboardOpen">
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/dashboard" routerLinkActive="active">
+                                <span class="submenu-text">Overview</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/analytics">
+                                <span class="submenu-text">Analytics</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/stats">
+                                <span class="submenu-text">Statistics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Exam Management -->
+                <li class="sidebar-menu-item-enhanced" [class.open]="examManagementOpen">
+                    <a class="sidebar-menu-button-enhanced" (click)="toggleExamManagementMenu($event)">
+                        <div class="menu-item-content">
+                            <span class="material-icons sidebar-menu-icon">quiz</span>
+                            <span class="menu-text">Exam Management</span>
+                            <span class="menu-arrow material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </a>
+                    <ul class="sidebar-submenu-enhanced" [class.show]="examManagementOpen">
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/exams">
+                                <span class="submenu-text">All Exams</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/createExam">
+                                <span class="submenu-text">Create Exam</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/exams/subject">
+                                <span class="submenu-text">Subject-wise Exams</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/exams/grade">
+                                <span class="submenu-text">Grade-wise Exams</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/exams/manage">
+                                <span class="submenu-text">Manage Exams</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/exams/settings">
+                                <span class="submenu-text">Exam Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- User Management -->
+                <li class="sidebar-menu-item-enhanced" [class.open]="userManagementOpen">
+                    <a class="sidebar-menu-button-enhanced" (click)="toggleUserManagementMenu($event)">
+                        <div class="menu-item-content">
+                            <span class="material-icons sidebar-menu-icon">people</span>
+                            <span class="menu-text">User Management</span>
+                            <span class="menu-arrow material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </a>
+                    <ul class="sidebar-submenu-enhanced" [class.show]="userManagementOpen">
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/students">
+                                <span class="submenu-text">Students</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/teachers">
+                                <span class="submenu-text">Teachers</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/admins">
+                                <span class="submenu-text">Administrators</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/roles">
+                                <span class="submenu-text">Roles & Permissions</span>
+                            </a>
+                        </li>
+                     </ul>
+                </li>
+
+                  <!-- Reports & Analytics -->
+                <li class="sidebar-menu-item-enhanced" [class.open]="reportsOpen">
+                    <a class="sidebar-menu-button-enhanced" (click)="toggleReportsMenu($event)">
+                        <div class="menu-item-content">
+                            <span class="material-icons sidebar-menu-icon">assessment</span>
+                            <span class="menu-text">Reports & Analytics</span>
+                            <span class="menu-arrow material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </a>
+                    <ul class="sidebar-submenu-enhanced" [class.show]="reportsOpen">
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/reports/performance">
+                                <span class="submenu-text">Performance Reports</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/reports/attendance">
+                                <span class="submenu-text">Attendance Reports</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/reports/exam-stats">
+                                <span class="submenu-text">Exam Statistics</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/reports/user-activity">
+                                <span class="submenu-text">User Activity</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/reports/export">
+                                <span class="submenu-text">Export Data</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- System Settings -->
+                <li class="sidebar-menu-item-enhanced" [class.open]="systemOpen">
+                    <a class="sidebar-menu-button-enhanced" (click)="toggleSystemMenu($event)">
+                        <div class="menu-item-content">
+                            <span class="material-icons sidebar-menu-icon">settings</span>
+                            <span class="menu-text">System</span>
+                            <span class="menu-arrow material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </a>
+                    <ul class="sidebar-submenu-enhanced" [class.show]="systemOpen">
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/settings/general">
+                                <span class="submenu-text">General Settings</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/settings/email">
+                                <span class="submenu-text">Email Configuration</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/settings/backup">
+                                <span class="submenu-text">Backup & Restore</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/settings/security">
+                                <span class="submenu-text">Security</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/logs">
+                                <span class="submenu-text">System Logs</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="sidebar-heading">Account</div>
+
+            <ul class="sidebar-menu-enhanced">
+                <!-- Admin Section -->
+                <li class="sidebar-menu-item-enhanced" [class.open]="adminOpen">
+                    <a class="sidebar-menu-button-enhanced" (click)="toggleAdminMenu($event)">
+                        <div class="menu-item-content">
+                            <span class="material-icons sidebar-menu-icon">admin_panel_settings</span>
+                            <span class="menu-text">Admin</span>
+                            <span class="menu-arrow material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </a>
+                    <ul class="sidebar-submenu-enhanced" [class.show]="adminOpen">
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/register" routerLinkActive="active">
+                                <span class="submenu-text">Register</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/signin">
+                                <span class="submenu-text">Signin</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/password">
+                                <span class="submenu-text">Password</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/activity-log">
+                                <span class="submenu-text">Activity Log</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Teacher Section -->
+                <li class="sidebar-menu-item-enhanced" [class.open]="teacherOpen">
+                    <a class="sidebar-menu-button-enhanced" (click)="toggleTeacherMenu($event)">
+                        <div class="menu-item-content">
+                            <span class="material-icons sidebar-menu-icon">school</span>
+                            <span class="menu-text">Teacher</span>
+                            <span class="menu-arrow material-icons">keyboard_arrow_right</span>
+                        </div>
+                    </a>
+                    <ul class="sidebar-submenu-enhanced" [class.show]="teacherOpen">
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/admin/teacher/signin">
+                                <span class="submenu-text">Signin</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-submenu-item">
+                            <a class="sidebar-submenu-button" routerLink="/teacher/password">
+                                <span class="submenu-text">Password</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+.custom-select.form-control,
+select.form-control {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 1rem center !important; /* arrow moves to right */
+  background-size: 1rem !important;
+
+  padding-right: 2rem !important; /* space for arrow */
+}
+.form-control {
+  pointer-events: auto !important; /* Ensure form controls are interactive */
+}

@@ -1,0 +1,40 @@
+<div class="mdk-drawer-layout js-mdk-drawer-layout" data-push data-responsive-width="992px">
+  <div class="mdk-drawer-layout__content page-content">
+    <div class="layout" [class.sidebar-hidden]="hideSidebar">
+      @if(!hideSidebar) {
+      <div class="sidebar" [class.open]="sidebarOpen">
+        <app-admin-sidebar></app-admin-sidebar>
+      </div>
+      }
+      <div class="main-content">
+        <div class="navbar-wrapper">
+          <button class="navbar-toggler w-auto mr-16pt d-block d-lg-none rounded-0" type="button"
+            (click)="toggleSidebar()">
+            <span class="material-icons">short_text</span>
+          </button>
+          <app-admin-topbar></app-admin-topbar>
+
+          <div class="page-area" (click)="closeSidebar()">
+            <router-outlet></router-outlet>
+          </div>
+          @if(!hideFooter){
+          <div class="footer">
+            <app-footer></app-footer>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  @if(loading){
+  <div class="preloader">
+    <div class="sk-chase">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
+  </div>
+  }
