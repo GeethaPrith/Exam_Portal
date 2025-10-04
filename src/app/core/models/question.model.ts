@@ -1,8 +1,17 @@
+// question.model.ts
 export interface Question {
   id: number;
   text: string;
-  description?: string;
   image?: string;
+  description?: string;
   options: string[];
-  data: any;
+  selectedAnswer?: number;
+}
+
+export interface ExamSubmission {
+  categoryId: number;
+  answers: {
+    questionId: number;
+    selectedOption: number;
+  }[];
 }

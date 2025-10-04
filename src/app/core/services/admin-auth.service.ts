@@ -2,16 +2,18 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, map, catchError, throwError } from 'rxjs';
-import { ChangePasswordRequest, LoginRequest, RegisterRequest, ResetPasswordRequest,AuthResponse,User } from '../models/admin-auth.model';
-
+import { ChangePasswordRequest, LoginRequest, RegisterRequest, ResetPasswordRequest, AuthResponse, User } from '../models/admin-auth.model';
+import { environment } from '../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AdminAuthService {
-  private readonly API_URL = 'https://api.yourexamportal.com/admin/auth'; // Replace with your API URL
+
+  private baseUrl = environment.apiUrl;
+
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
-  
+
   public currentUser$ = this.currentUserSubject.asObservable();
   public isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
@@ -25,7 +27,7 @@ export class AdminAuthService {
   private initializeAuth(): void {
     const token = this.getToken();
     const user = this.getUserFromStorage();
-    
+
     if (token && user) {
       this.currentUserSubject.next(user);
       this.isLoggedInSubject.next(true);
@@ -44,7 +46,7 @@ export class AdminAuthService {
 
   // Authentication Methods
   login(credentials: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/login`, credentials, this.getHttpOptions())
+    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, credentials, this.getHttpOptions())
       .pipe(
         map(response => {
           if (response.success && response.token && response.user) {
@@ -57,7 +59,7 @@ export class AdminAuthService {
   }
 
   register(userData: RegisterRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/register`, userData, this.getHttpOptions())
+    return this.http.post<AuthResponse>(`${this.baseUrl}/register`, userData, this.getHttpOptions())
       .pipe(
         map(response => {
           if (response.success && response.token && response.user) {
@@ -70,19 +72,19 @@ export class AdminAuthService {
   }
 
   resetPassword(email: ResetPasswordRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/reset-password`, email, this.getHttpOptions())
+    return this.http.post<AuthResponse>(`${this.baseUrl}/reset-password`, email, this.getHttpOptions())
       .pipe(catchError(this.handleError));
   }
 
   changePassword(passwordData: ChangePasswordRequest): Observable<AuthResponse> {
-    return this.http.put<AuthResponse>(`${this.API_URL}/change-password`, passwordData, this.getHttpOptions())
+    return this.http.put<AuthResponse>(`${this.baseUrl}/change-password`, passwordData, this.getHttpOptions())
       .pipe(catchError(this.handleError));
   }
 
   logout(): void {
     // Call API to logout (optional)
-    this.http.post(`${this.API_URL}/logout`, {}, this.getHttpOptions()).subscribe();
-    
+    this.http.post(`${this.baseUrl}/logout`, {}, this.getHttpOptions()).subscribe();
+
     this.clearAuthData();
     this.router.navigate(['/admin/auth/login']);
   }
@@ -162,19 +164,19 @@ export class AdminAuthService {
   private handleError(error: any): Observable<never> {
     console.error('Auth Service Error:', error);
     let errorMessage = 'An unexpected error occurred';
-    
+
     if (error.error?.message) {
       errorMessage = error.error.message;
     } else if (error.message) {
       errorMessage = error.message;
     }
-    
+
     return throwError(() => new Error(errorMessage));
   }
 
   // Utility Methods
   refreshToken(): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.API_URL}/refresh-token`, {}, this.getHttpOptions())
+    return this.http.post<AuthResponse>(`${this.baseUrl}/refresh-token`, {}, this.getHttpOptions())
       .pipe(
         map(response => {
           if (response.success && response.token) {
@@ -191,7 +193,7 @@ export class AdminAuthService {
   }
 
   checkEmailExists(email: string): Observable<{ exists: boolean }> {
-    return this.http.get<{ exists: boolean }>(`${this.API_URL}/check-email/${email}`, this.getHttpOptions())
+    return this.http.get<{ exists: boolean }>(`${this.baseUrl}/check-email/${email}`, this.getHttpOptions())
       .pipe(catchError(this.handleError));
   }
 }

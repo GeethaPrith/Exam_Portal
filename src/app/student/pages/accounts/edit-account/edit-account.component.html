@@ -5,30 +5,32 @@
 
   <div class="col-md-6 p-0">
     <form [formGroup]="infoForm" (ngSubmit)="onSave()">
-      <!-- First Name -->
+      <!-- Full Name -->
       <div class="form-group">
-        <label class="form-label">First name</label>
+        <label class="form-label">Full name</label>
         <input 
           type="text" 
           class="form-control" 
-          formControlName="firstName" 
-          placeholder="Your first name ..." />
-        @if(firstName.invalid && firstName.touched) {
-          <small class="text-danger">First name is required</small>
+          formControlName="fullName" 
+          placeholder="Your full name ..." />
+        @if(fullName.invalid && fullName.touched) {
+          <small class="text-danger">Full name is required</small>
         }
       </div>
-      <!-- Last Name -->
+
+      <!-- Mobile Number -->
       <div class="form-group">
-        <label class="form-label">Last name</label>
+        <label class="form-label">Mobile Number</label>
         <input 
-          type="text" 
+          type="number" 
           class="form-control" 
-          formControlName="lastName" 
-          placeholder="Your last name ..." />
-        @if(lastName.invalid && lastName.touched) {
-          <small class="text-danger">Last name is required</small>
+          formControlName="mobileNumber" 
+          placeholder="Your Mobile Number ..." />
+        @if(mobileNumber.invalid && mobileNumber.touched) {
+          <small class="text-danger">Enter valid 10-digit number</small>
         }
       </div>
+
       <!-- Email -->
       <div class="form-group">
         <label class="form-label">Email address</label>
@@ -44,6 +46,7 @@
           Note that if you change your email, you will have to confirm it again.
         </small>
       </div>
+
       <!-- Save Button -->
       <button type="submit" class="btn btn-primary" [disabled]="infoForm.invalid">
         Save changes

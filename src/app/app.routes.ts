@@ -46,12 +46,6 @@ export const routes: Routes = [
             loadComponent: () =>
               import('./student/pages/accounts/profile/profile.component')
                 .then(m => m.ProfileComponent)
-          },
-          {
-            path: 'password',
-            loadComponent: () =>
-              import('./student/pages/accounts/account-password/account-password.component')
-                .then(m => m.AccountPasswordComponent)
           }
         ]
       },
@@ -65,10 +59,10 @@ export const routes: Routes = [
                 .then(m => m.LoginComponent)
           },
           {
-            path: 'signup',
+            path: 'register',
             loadComponent: () =>
-              import('./student/pages/auth/signup/signup.component')
-                .then(m => m.SignupComponent)
+              import('./student/pages/student-register/student-register.component')
+                .then(m => m.StudentRegisterComponent)
           },
           {
             path: 'password',
@@ -104,6 +98,18 @@ export const routes: Routes = [
             loadComponent: () =>
               import('./student/pages/payments/payment/payment.component')
                 .then(m => m.PaymentComponent)
+          },
+          {
+            path: 'subscription',
+            loadComponent: () =>
+              import('./student/pages/payments/subscription-plans/subscription-plans.component')
+                .then(m => m.SubscriptionPlansComponent)
+          },
+          {
+            path: 'my-subscription',
+            loadComponent: () =>
+              import('./student/pages/payments/my-subscription/my-subscription.component')
+                .then(m => m.MySubscriptionsComponent)
           }
         ]
       }
@@ -139,6 +145,24 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./admin/pages/admin-register/admin-register.component')
             .then(m => m.AdminRegisterComponent)
+      },
+      {
+        path: 'password',
+        loadComponent: () =>
+          import('./admin/password/admin-password/admin-password.component')
+            .then(m => m.AdminPasswordComponent)
+      },
+      {
+        path: 'superadmin/password',
+        loadComponent: () =>
+          import('./admin/password/super-admin-password/super-admin-password.component')
+            .then(m => m.SuperAdminPasswordComponent)
+      },
+      {
+        path: 'teacher/password',
+        loadComponent: () =>
+          import('./admin/password/teacher-password/teacher-password.component')
+            .then(m => m.TeacherPasswordComponent)
       },
       {
         path: 'teacher/signin',

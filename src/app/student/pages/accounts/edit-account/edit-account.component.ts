@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
+import { AuthService } from '../../../../core/services/auth.service';
 
 interface AccountForm {
-  firstName: FormControl<string>;
-  lastName: FormControl<string>;
+  fullName: FormControl<string>;
   email: FormControl<string>;
+  mobileNumber: FormControl<string>;
 }
 
 @Component({
@@ -18,20 +19,36 @@ export class EditAccountComponent {
 
   infoForm: FormGroup<AccountForm>;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.infoForm = this.fb.nonNullable.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      fullName: ['', Validators.required],
+      mobileNumber: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]]
     });
   }
-
-  get firstName() {
-    return this.infoForm.controls.firstName;
+  ngOnInit(): void {
+    this.loadProfile();
   }
 
-  get lastName() {
-    return this.infoForm.controls.lastName;
+  loadProfile() {
+    this.authService.getProfile().subscribe({
+      next: (res) => {
+        this.infoForm.patchValue({
+          fullName: res.fullName || '',
+          mobileNumber: res.mobileNumber || '',
+          email: res.email || ''
+        });
+      },
+      error: (err) => console.error('Failed to load profile', err)
+    });
+  }
+
+  get fullName() {
+    return this.infoForm.controls.fullName;
+  }
+
+  get mobileNumber() {
+    return this.infoForm.controls.mobileNumber;
   }
 
   get email() {
@@ -40,7 +57,21 @@ export class EditAccountComponent {
 
   onSave() {
     if (this.infoForm.valid) {
-      console.log('Form submitted:', this.infoForm.value);
+      const payload = {
+        fullName: this.fullName?.value,
+       mobileNumber: this.mobileNumber?.value,
+        email: this.email?.value
+      };
+
+      this.authService.updateProfile(payload).subscribe({
+        next: (res) => {
+          console.log('Profile updated', res),
+        localStorage.setItem('user', JSON.stringify(res));
+        },
+        error: (err) => console.error('Update failed', err)
+      });
+    } else {
+      this.infoForm.markAllAsTouched();
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ export class ProfileComponent {
   profileForm: FormGroup;
   previewUrl: string = '/assets/images/guy-3.jpg'; // default image
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.profileForm = this.fb.group({
       photo: ['Choose File',null],
       profileName: ['', [Validators.required, Validators.minLength(3)]],
@@ -36,12 +37,35 @@ export class ProfileComponent {
   }
 
   onSubmit() {
-    if (this.profileForm.valid) {
-      console.log('Form submitted:', this.profileForm.value);
-      // TODO: API call to save profile
-    } else {
-      this.profileForm.markAllAsTouched();
+  if (this.profileForm.valid) {
+    const formData = new FormData();
+    
+    // Append file if exists
+    const photoControl = this.profileForm.get('photo');
+    if (photoControl?.value && photoControl.value instanceof File) {
+      formData.append('photo', photoControl.value);
     }
+    
+    // Append other form fields
+    formData.append('profileName', this.profileForm.get('profileName')?.value);
+    formData.append('about', this.profileForm.get('about')?.value || '');
+    formData.append('displayRealName', this.profileForm.get('displayRealName')?.value);
+    formData.append('allowPublic', this.profileForm.get('allowPublic')?.value);
+    
+    this.authService.updateProfile(formData).subscribe({
+      next: (response) => {
+        console.log('Profile updated successfully', response);
+        // Update local storage with new user data
+        localStorage.setItem('user', JSON.stringify(response));
+      },
+      error: (error) => {
+        console.error('Error updating profile', error);
+      }
+    });
+  } else {
+    this.profileForm.markAllAsTouched();
   }
+}
+
 
 }

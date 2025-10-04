@@ -4,7 +4,7 @@
     font-weight: 400;
     font-display: block;
     src: url(../fonts/material-icons/MaterialIcons-Regular.eot);
-    src: local("\263A"),url(../fonts/material-icons/MaterialIcons-Regular.woff2) format("woff2"),url(../fonts/material-icons/MaterialIcons-Regular.woff) format("woff"),url(../fonts/material-icons/MaterialIcons-Regular.ttf) format("truetype")
+    /* src: local("\263A"),url(../fonts/material-icons/MaterialIcons-Regular.woff2) format("woff2"),url(../fonts/material-icons/MaterialIcons-Regular.woff) format("woff"),url(../fonts/material-icons/MaterialIcons-Regular.ttf) format("truetype") */
 }
 
 .material-icons {

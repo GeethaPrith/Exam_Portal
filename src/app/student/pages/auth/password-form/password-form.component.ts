@@ -1,6 +1,9 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
+import { AuthService } from '../../../../core/services/auth.service';
+type UserRole = 'teacher' | 'admin' | 'superadmin' | 'student';
+type FormMode = 'update' | 'forgot';
 
 @Component({
   selector: 'app-password-form',
@@ -9,67 +12,72 @@ import { SharedModule } from '../../../../shared/shared.module';
   styleUrl: './password-form.component.scss'
 })
 export class PasswordFormComponent {
-  @Input() mode: 'change' | 'reset' = 'change'; // default
+  @Input() role: UserRole = 'student';
+    @Input() mode: FormMode = 'update';   // 👈 now you can control mode from parent
+
+  //mode: FormMode = 'change';
   passwordForm!: FormGroup;
   resetForm!: FormGroup;
   emailSent = false;
+  message = '';
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
-    ngOnInit(): void {
-    this.buildForms();
+  ngOnInit(): void {
+    this.initForms();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['mode'] && !changes['mode'].firstChange) {
-      this.buildForms();       // rebuild when mode switches
-      this.emailSent = false;  // reset any previous state
-    }
-  }
-  private buildForms(): void {
-    if (this.mode === 'change') {
-      this.passwordForm = this.fb.group(
-        {
-          password: ['', [Validators.required, Validators.minLength(6)]],
-          confirmPassword: ['', Validators.required],
-        },
-        { validators: this.passwordMatchValidator }
-      );
-            this.resetForm = undefined as any;
+  initForms(): void {
+    this.passwordForm = this.fb.group({
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, { validators: this.passwordMatchValidator });
 
-    } else {
-      this.resetForm = this.fb.group({
-        email: ['', [Validators.required, Validators.email]],
-      });
-            this.passwordForm = undefined as any;
-
-    }
+    this.resetForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
   }
 
-  get password(): AbstractControl | null {
-    return this.passwordForm?.get('password') || null;
-  }
-  get confirmPassword(): AbstractControl | null {
-    return this.passwordForm?.get('confirmPassword') || null;
-  }
-
-  passwordMatchValidator(group: FormGroup) {
-    const pass = group.get('password')?.value;
-    const confirm = group.get('confirmPassword')?.value;
-    return pass === confirm ? null : { passwordMismatch: true };
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password');
+    const confirmPassword = form.get('confirmPassword');
+    return password && confirmPassword && password.value === confirmPassword.value
+      ? null
+      : { passwordMismatch: true };
   }
 
-  onChangeSubmit() {
+  get password() {
+    return this.passwordForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.passwordForm.get('confirmPassword');
+  }
+
+  onChangeSubmit(): void {
     if (this.passwordForm.valid) {
       console.log('Password changed:', this.passwordForm.value);
     }
   }
 
-  onResetSubmit() {
+
+  setMode(newMode: FormMode): void {
+    this.mode = newMode;
+    this.emailSent = false;
+  }
+    onResetSubmit(): void {
     if (this.resetForm.valid) {
-      console.log('Reset link sent to:', this.resetForm.value.email);
-      this.emailSent = true;
+      const email = this.resetForm.value.email;
+      this.authService.forgotPassword(email).subscribe({
+        next: (res) => {
+          this.emailSent = true;
+          this.message = res.message || 'Reset email sent successfully.';
+        },
+        error: (err) => {
+          this.message = 'Failed to send reset link. Try again later.';
+          console.error(err);
+        }
+      });
     }
   }
-
 }

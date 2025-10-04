@@ -1,0 +1,671 @@
+[
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.AuthController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/admin/auth/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.CommonRequests\u002BForgotPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/admin/auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.CommonRequests\u002BLoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.AuthController",
+    "Method": "UpdatePassword",
+    "RelativePath": "api/admin/auth/update-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.CommonRequests\u002BUpdatePasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.RoleController",
+    "Method": "GetAll",
+    "RelativePath": "api/admin/roles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.RoleController",
+    "Method": "Create",
+    "RelativePath": "api/admin/roles",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.CommonRequests\u002BCreateRoleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.RoleController",
+    "Method": "Get",
+    "RelativePath": "api/admin/roles/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.RoleController",
+    "Method": "Update",
+    "RelativePath": "api/admin/roles/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.CommonRequests\u002BCreateRoleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.RoleController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/roles/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.SubscriptionPlanController",
+    "Method": "GetAll",
+    "RelativePath": "api/admin/subscription-plans",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.SubscriptionPlanController",
+    "Method": "Create",
+    "RelativePath": "api/admin/subscription-plans",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.CommonRequests\u002BCreateSubscriptionPlanRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.SubscriptionPlanController",
+    "Method": "Get",
+    "RelativePath": "api/admin/subscription-plans/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.SubscriptionPlanController",
+    "Method": "Update",
+    "RelativePath": "api/admin/subscription-plans/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.CommonRequests\u002BCreateSubscriptionPlanRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.SubscriptionPlanController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/subscription-plans/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.TestCategoryController",
+    "Method": "GetAll",
+    "RelativePath": "api/admin/test-categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.TestCategoryController",
+    "Method": "Create",
+    "RelativePath": "api/admin/test-categories",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.CommonRequests\u002BCreateTestCategoryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.TestCategoryController",
+    "Method": "Get",
+    "RelativePath": "api/admin/test-categories/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.TestCategoryController",
+    "Method": "Update",
+    "RelativePath": "api/admin/test-categories/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.CommonRequests\u002BCreateTestCategoryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.TestCategoryController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/test-categories/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.UserController",
+    "Method": "GetAll",
+    "RelativePath": "api/admin/users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.UserController",
+    "Method": "Create",
+    "RelativePath": "api/admin/users",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.CommonRequests\u002BCreateUserRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.UserController",
+    "Method": "Get",
+    "RelativePath": "api/admin/users/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.UserController",
+    "Method": "Update",
+    "RelativePath": "api/admin/users/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "user",
+        "Type": "ExamPortal.Core.Entities.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Admin.UserController",
+    "Method": "Delete",
+    "RelativePath": "api/admin/users/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "Auth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentAuthController",
+    "Method": "ForgotPassword",
+    "RelativePath": "api/student/auth/forgot-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.StudentsRequestResponse\u002BStudentForgotPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentAuth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentAuthController",
+    "Method": "Login",
+    "RelativePath": "api/student/auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.StudentsRequestResponse\u002BStudentLoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentAuth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentAuthController",
+    "Method": "GetProfile",
+    "RelativePath": "api/student/auth/profile",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentAuth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentAuthController",
+    "Method": "UpdateProfile",
+    "RelativePath": "api/student/auth/profile",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.StudentsRequestResponse\u002BUpdateStudentProfileRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentAuth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentAuthController",
+    "Method": "Register",
+    "RelativePath": "api/student/auth/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.StudentsRequestResponse\u002BStudentRegisterRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentAuth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentAuthController",
+    "Method": "UpdatePassword",
+    "RelativePath": "api/student/auth/update-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.StudentsRequestResponse\u002BStudentUpdatePasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentAuth"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentSubscriptionController",
+    "Method": "BuyPlan",
+    "RelativePath": "api/student/subscription/buy",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.StudentsRequestResponse\u002BBuySubscriptionRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentSubscription"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentSubscriptionController",
+    "Method": "MySubscriptions",
+    "RelativePath": "api/student/subscription/my-subscriptions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentSubscription"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentSubscriptionController",
+    "Method": "GetPlans",
+    "RelativePath": "api/student/subscription/plans",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentSubscription"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentTestController",
+    "Method": "GetMyTestAttempts",
+    "RelativePath": "api/student/tests/attempts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentTests"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentTestController",
+    "Method": "GetAllCategories",
+    "RelativePath": "api/student/tests/categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentTests"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentTestController",
+    "Method": "GetCategoryDetail",
+    "RelativePath": "api/student/tests/categories/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentTests"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentTestController",
+    "Method": "GetQuestionsByCategory",
+    "RelativePath": "api/student/tests/categories/{id}/questions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentTests"
+    ]
+  },
+  {
+    "ContainingType": "ExamPortal.WebApi.Controllers.Student.StudentTestController",
+    "Method": "SubmitTest",
+    "RelativePath": "api/student/tests/submit",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "ExamPortal.Core.Requests.StudentsRequestResponse\u002BSubmitTestRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "Tags": [
+      "StudentTests"
+    ]
+  }
+]

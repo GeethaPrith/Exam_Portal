@@ -1,0 +1,6 @@
+@ExamPortal.WebApi_HostAddress = http://localhost:5279
+
+GET {{ExamPortal.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

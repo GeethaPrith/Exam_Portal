@@ -1,34 +1,36 @@
+// question.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Question } from '../models/question.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
 
-    private jsonUrl = 'assets/data/questions.json' // json-server base
+  private baseUrl = `${environment.apiUrl}/student/tests`;
 
   constructor(private http: HttpClient) {}
 
-  getQuestions(): Observable<Question[]> {
-    return this.http.get<Question[]>(this.jsonUrl);
+  getCategories(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/categories`);
   }
 
-  getQuestion(id: number): Observable<Question> {
-    return this.http.get<Question>(`${this.jsonUrl}/${id}`);
+  getCategory(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/categories/${id}`);
   }
 
-  addQuestion(question: Question): Observable<Question> {
-    return this.http.post<Question>(this.jsonUrl, question);
+  getQuestions(categoryId: number): Observable<Question[]> {
+    return this.http.get<Question[]>(`${this.baseUrl}/categories/${categoryId}/questions`);
   }
 
-  updateQuestion(question: Question): Observable<Question> {
-    return this.http.put<Question>(`${this.jsonUrl}/${question.id}`, question);
+  submitExam(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/submit`, payload);
   }
 
-  deleteQuestion(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.jsonUrl}/${id}`);
+  getAttempts(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/attempts`);
   }
 }

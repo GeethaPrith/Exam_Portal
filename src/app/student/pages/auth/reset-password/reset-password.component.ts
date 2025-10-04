@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
 import { PasswordFormComponent } from '../password-form/password-form.component';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,7 +14,7 @@ export class ResetPasswordComponent {
   resetForm: FormGroup;
   emailSent = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.resetForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
@@ -28,7 +29,7 @@ export class ResetPasswordComponent {
       this.emailSent = true;
 
       // TODO: Replace with your service call
-      // this.authService.resetPassword(email).subscribe(() => this.emailSent = true);
+       this.authService.forgotPassword(email).subscribe(() => this.emailSent = true);
     } else {
       this.resetForm.markAllAsTouched();
     }

@@ -3,10 +3,10 @@ export interface LoginPayload {
   password: string;
 }
 export interface SignupPayload {
-  name: string;
+  fullName: string;
   email: string;
   password: string;
-  terms: boolean;
+  mobileNumber: Number;
 }
 export interface AuthResponse {
   message: string;
@@ -15,11 +15,12 @@ export interface AuthResponse {
   user: User;
 }
 export interface User {
+  mobileNumber: string;
+  fullName: any;
   id: string;
   name: string;
   email: string;
-  role: 'admin' | 'user' | 'guest';
-
+  role: 'superadmin' | 'admin' | 'teacher' | 'student';
 }
 
 export interface LoginResponse {
@@ -31,4 +32,10 @@ export interface ApiResponse<T> {
   success: boolean;
   message: string;
   data: T;
+}
+export interface ForgotPasswordPayload {
+  email: string;
+}
+export interface UpdatePasswordPayload {
+  newPassword: string; // new password to set
 }

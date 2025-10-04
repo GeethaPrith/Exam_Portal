@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { AuthResponse, LoginPayload, LoginResponse, SignupPayload, User } from '../models/auth.model';
+import { AuthResponse, LoginPayload, LoginResponse, SignupPayload, User, ForgotPasswordPayload, UpdatePasswordPayload } from '../models/auth.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,13 @@ import { AuthResponse, LoginPayload, LoginResponse, SignupPayload, User } from '
 
 export class AuthService {
 
-  private apiUrl = 'https://dummyjson.com/auth/login'; // 🔥 replace with real API
-  private baseUrl = 'https://your-api-url.com/api'; // Replace with your actual API
+  private baseUrl = `${environment.apiUrl}/student/auth`;
 
   constructor(private http: HttpClient) { }
 
-    /** Login user */
+  /** Login user */
   login(payload: LoginPayload): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}`, payload).pipe(
+    return this.http.post<LoginResponse>(`${this.baseUrl}/login`, payload).pipe(
       tap((res: LoginResponse) => {
         this.setSession(res.token, res.user);
       })
@@ -29,13 +29,21 @@ export class AuthService {
   }
 
   /** Reset password */
-  resetPassword(email: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/reset-password`, { email });
+  forgotPassword(email:string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/forgot-password`, {email});
   }
 
   /** Change password */
-  changePassword(payload: { oldPassword: string; newPassword: string }): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/change-password`, payload);
+  updatePassword(payload: UpdatePasswordPayload): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/update-password`, payload);
+  }
+
+  getProfile(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/profile`);
+  }
+
+  updateProfile(data: any): Observable<User> {
+    return this.http.put<User>(`${this.baseUrl}/profile`, data);
   }
 
   /** Store session */
@@ -57,8 +65,12 @@ export class AuthService {
 
   /** Is logged in */
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
+  const token = this.getToken();
+  if (!token) return false;
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  return payload.exp * 1000 > Date.now();
+}
+
 
   /** Get token */
   getToken(): string | null {
